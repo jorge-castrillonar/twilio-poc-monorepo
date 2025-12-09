@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Global Styles */
+@layer base {
+  * {
+    @apply box-border;
+  }
+
+  html {
+    @apply h-full;
+  }
+
+  body {
+    @apply h-full bg-twilio-gray-50 font-sans text-twilio-gray-900 antialiased;
+  }
+
+  #root {
+    @apply h-full;
+  }
+}
+
+/* Custom Components */
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50;
+  }
+
+  .input {
+    @apply block w-full rounded-md border border-twilio-gray-300 px-3 py-2 text-sm shadow-sm placeholder-twilio-gray-400 focus:border-twilio-blue focus:outline-none focus:ring-1 focus:ring-twilio-blue disabled:cursor-not-allowed disabled:bg-twilio-gray-50 disabled:text-twilio-gray-500;
+  }
+
+  .card {
+    @apply rounded-lg border border-twilio-gray-200 bg-white shadow;
+  }
+
+  .badge {
+    @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium;
+  }
+}
+
+/* Utilities */
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}

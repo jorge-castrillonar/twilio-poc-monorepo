@@ -1,0 +1,14 @@
+{
+  "MonetaryAmount": {
+    "amount": {
+      "required": true,
+      "type": "Integer",
+      "description": "Amount of money in cents"
+    },
+    "currency": {
+      "required": true,
+      "type": "String",
+      "description": "Currency of Monetary Amount. Currently the system only supports USD"
+    }
+  }
+}

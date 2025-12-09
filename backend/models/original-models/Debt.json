@@ -1,0 +1,117 @@
+{
+  "Debt": {
+    "biller": {
+      "type": "String",
+      "description": "For aggregators and marketplaces: this field stores the name of your sub merchant"
+    },
+    "product": {
+      "type": "String",
+      "description": "Description of the product or service associated with this debt"
+    },
+    "initialPrincipal": {
+      "required": true,
+      "type": "MonetaryAmount",
+      "description": "Amount of money owed to you in cents"
+    },
+    "initialInterest": {
+      "required": true,
+      "type": "MonetaryAmount",
+      "description": "The amount of interest owed to you by this customer by the time it's handed off to TrueAccord"
+    },
+    "initialFees": {
+      "required": true,
+      "type": "MonetaryAmount",
+      "description": "The amount of fees owed to you by this customer due to not paying initialPrincipal"
+    },
+    "transactionId": {
+      "type": "String",
+      "description": "You can use to store a reference to the transactionId on your system. Up to 1024 characters"
+    },
+    "transactionIp": {
+      "type": "String",
+      "description": "IP address associated with this transaction. Either in IPv4 or IPv6 format"
+    },
+    "transactionTimestamp": {
+      "type": "Timestamp",
+      "description": "Time that the transaction leading to the debt occurred, if applicable"
+    },
+    "defaultTimestamp": {
+      "type": "Timestamp",
+      "description": "Time customer defaulted on the debt. This should be after the transactionTimestamp"
+    },
+    "accountOpenTimestamp": {
+      "type": "Timestamp",
+      "description": "Time the customer initially opened or created an account with you, if applicable"
+    },
+    "clientFields": {
+      "type": "Array",
+      "description": "Key-value pairs that are client specific",
+      "items": {
+        "key": {
+          "required": true,
+          "type": "String",
+          "description": "The key specifying the type of information"
+        },
+        "value": {
+          "required": true,
+          "type": "String",
+          "description": "The value containing the information"
+        }
+      }
+    },
+    "sendCbrNegativeNotice": {
+      "type": "Boolean",
+      "description": "Flag indicating whether a negative notice WILL BE submitted to a credit bureau in the future"
+    },
+    "hasSentCbrNegativeNotice": {
+      "type": "Boolean",
+      "description": "Flag indicating whether a negative notice HAS BEEN submitted to a credit bureau in the past"
+    },
+    "postChargeOffInformation": {
+      "type": "Object",
+      "description": "Object with information relevant for Post-ChargeOff debts. Required for accounts in the state of NY",
+      "properties": {
+        "chargeOffTimestamp": {
+          "type": "Timestamp",
+          "description": "The time of charge-off"
+        },
+        "balanceAtChargeOff": {
+          "type": "MonetaryAmount",
+          "description": "The balance at time of charge-off"
+        },
+        "feesAccruedSinceChargeOff": {
+          "type": "MonetaryAmount",
+          "description": "The fees accrued since time of charge-off"
+        },
+        "interestAccruedSinceChargeOff": {
+          "type": "MonetaryAmount",
+          "description": "The interest accrued since time of charge-off"
+        },
+        "totalPaidSinceChargeOff": {
+          "type": "MonetaryAmount",
+          "description": "The total amount paid since time of charge-off"
+        }
+      }
+    },
+    "itemizationTimestamp": {
+      "type": "Timestamp",
+      "description": "Unix Time in milliseconds, of the itemization date"
+    },
+    "initialPaymentsAndCredits": {
+      "type": "MonetaryAmount",
+      "description": "The monetary credits the customer has towards the debt, or the amount of money the customer has paid towards the debt, before the debt came to collections"
+    },
+    "isInitialPrincipalBeforePaymentsAndCredits": {
+      "type": "Boolean",
+      "description": "Flag indicating whether the initialPrincipal includes initialPaymentsAndCredits"
+    },
+    "creditorName": {
+      "type": "String",
+      "description": "The name of the DOING_BUSINESS_AS creditor brand to associate with this debt"
+    },
+    "originalCreditorName": {
+      "type": "String",
+      "description": "The name of the ORIGINAL creditor brand to associate with this debt"
+    }
+  }
+}

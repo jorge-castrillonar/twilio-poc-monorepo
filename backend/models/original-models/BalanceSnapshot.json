@@ -1,0 +1,25 @@
+{
+  "BalanceSnapshot": {
+    "principal": {
+      "required": true,
+      "type": "MonetaryAmount",
+      "description": "The absolute value for the principal"
+    },
+    "interest": {
+      "type": "MonetaryAmount",
+      "description": "The absolute value for the interest. If not provided in request, default value is 0"
+    },
+    "fees": {
+      "type": "MonetaryAmount",
+      "description": "The absolute value for the fees. If not provided in request, default value is 0"
+    },
+    "costs": {
+      "type": "MonetaryAmount",
+      "description": "The absolute value for the costs. If not provided in request, default value is 0"
+    },
+    "notes": {
+      "type": "String",
+      "description": "A note about why this balance has been updated"
+    }
+  }
+}

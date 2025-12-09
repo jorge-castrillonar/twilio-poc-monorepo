@@ -1,0 +1,97 @@
+{
+  "CreditorBrand": {
+    "logoUrl": {
+      "id": "MapParser",
+      "type": "data",
+      "value": "LOGO_URL"
+    },
+    "type": {
+      "id": "MapParser",
+      "type": "expression",
+      "value": "function process(data) { if(data['BRAND_TYPE']) { var type = data['BRAND_TYPE'].toUpperCase(); if(['DOING_BUSINESS_AS', 'ORIGINAL'].includes(type)) return type; } return 'DOING_BUSINESS_AS'; }"
+    },
+    "name": {
+      "id": "MapParser",
+      "type": "data",
+      "value": "BRAND_NAME"
+    },
+    "address": {
+      "streetLine1": {
+        "id": "MapParser",
+        "type": "data",
+        "value": "BRAND_ADDRESS_1"
+      },
+      "streetLine2": {
+        "id": "MapParser",
+        "type": "data",
+        "value": "BRAND_ADDRESS_2"
+      },
+      "city": {
+        "id": "MapParser",
+        "type": "data",
+        "value": "BRAND_CITY"
+      },
+      "state": {
+        "id": "MapParser",
+        "type": "data",
+        "value": "BRAND_STATE"
+      },
+      "zipcode": {
+        "id": "MapParser",
+        "type": "data",
+        "value": "BRAND_ZIPCODE"
+      },
+      "countryCode": {
+        "id": "MapParser",
+        "type": "static",
+        "value": "US"
+      }
+    },
+    "meta": {
+      "id": {
+        "id": "MapParser",
+        "type": "data",
+        "value": "BRAND_META_ID"
+      },
+      "isActive": {
+        "id": "MapParser",
+        "type": "expression",
+        "value": "function process(data) { if (data['BRAND_IS_ACTIVE']) { return data['BRAND_IS_ACTIVE'] === 'Y' || data['BRAND_IS_ACTIVE'] === 'true'; } return true; }",
+        "dataType": "boolean"
+      },
+      "isPrimary": {
+        "id": "MapParser",
+        "type": "expression",
+        "value": "function process(data) { if (data['BRAND_IS_PRIMARY']) { return data['BRAND_IS_PRIMARY'] === 'Y' || data['BRAND_IS_PRIMARY'] === 'true'; } return false; }",
+        "dataType": "boolean"
+      }
+    },
+    "description": {
+      "id": "MapParser",
+      "type": "data",
+      "value": "BRAND_DESCRIPTION"
+    },
+    "websiteUrl": {
+      "id": "MapParser",
+      "type": "data",
+      "value": "BRAND_WEBSITE_URL"
+    },
+    "brandDetails": {
+      "originalCreditor": {
+        "id": "MapParser",
+        "type": "data",
+        "value": "BRAND_ORIGINAL_CREDITOR"
+      },
+      "merchant": {
+        "id": "MapParser",
+        "type": "data",
+        "value": "BRAND_MERCHANT"
+      },
+      "productType": {
+        "id": "MapParser",
+        "type": "expression",
+        "value": "function process(data) { if(data['PRODUCT_TYPE']) { var type = data['PRODUCT_TYPE'].toUpperCase(); if(['UNKNOWN', 'CARD'].includes(type)) return type; } return 'UNKNOWN'; }"
+      }
+    }
+  }
+}

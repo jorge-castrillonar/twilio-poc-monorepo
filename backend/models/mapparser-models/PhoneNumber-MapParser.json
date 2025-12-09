@@ -1,0 +1,29 @@
+{
+  "PhoneNumber": {
+    "phoneNumber": {
+      "id": "MapParser",
+      "type": "data",
+      "value": "PHONE_NUMBER"
+    },
+    "dataSource": {
+      "type": {
+        "id": "MapParser",
+        "type": "static",
+        "value": "CREDITOR"
+      }
+    },
+    "consent": {
+      "time": {
+        "id": "MapParser",
+        "type": "expression",
+        "value": "function process(data) { return new Date().getTime().toString(); }",
+        "dataType": "number"
+      }
+    },
+    "types": {
+      "id": "MapParser",
+      "type": "expression",
+      "value": "function process(data) { if (data['PHONE_TYPE']) { var type = data['PHONE_TYPE'].toUpperCase(); if(['WORK', 'HOME', 'CELL', 'FAX', 'BUSINESS'].includes(type)) return [type]; } return ['CELL']; }"
+    }
+  }
+}

@@ -1,0 +1,209 @@
+services:
+  # ActiveMQ Message Broker
+  activemq:
+    image: apache/activemq-classic:5.18.3
+    container_name: activemq
+    ports:
+      - "61616:61616"
+      - "8161:8161"
+    environment:
+      ACTIVEMQ_CONFIG_NAME: amq
+      ACTIVEMQ_CONFIG_DEFAULTACCOUNT: false
+    networks:
+      - backend-network
+
+  # PostgreSQL for Core Service
+  core-db:
+    image: postgres:15-alpine
+    container_name: core-db
+    environment:
+      POSTGRES_DB: core_service
+      POSTGRES_USER: ${CORE_DB_USERNAME}
+      POSTGRES_PASSWORD: ${CORE_DB_PASSWORD}
+    ports:
+      - "5432:5432"
+    volumes:
+      - core_db_data:/var/lib/postgresql/data
+    networks:
+      - backend-network
+
+  # PostgreSQL for S3 Service
+  s3-db:
+    image: postgres:15-alpine
+    container_name: s3-db
+    environment:
+      POSTGRES_DB: s3_service
+      POSTGRES_USER: ${S3_DB_USERNAME}
+      POSTGRES_PASSWORD: ${S3_DB_PASSWORD}
+    ports:
+      - "5433:5432"
+    volumes:
+      - s3_db_data:/var/lib/postgresql/data
+    networks:
+      - backend-network
+
+  # PostgreSQL for User Service
+  user-db:
+    image: postgres:15-alpine
+    container_name: user-db
+    environment:
+      POSTGRES_DB: userdb
+      POSTGRES_USER: ${USER_DB_USERNAME}
+      POSTGRES_PASSWORD: ${USER_DB_PASSWORD}
+    ports:
+      - "5435:5432"
+    volumes:
+      - user_db_data:/var/lib/postgresql/data
+    networks:
+      - backend-network
+
+  # PostgreSQL for Auth Service
+  auth-db:
+    image: postgres:15-alpine
+    container_name: auth-db
+    environment:
+      POSTGRES_DB: authdb
+      POSTGRES_USER: ${AUTH_DB_USERNAME}
+      POSTGRES_PASSWORD: ${AUTH_DB_PASSWORD}
+    ports:
+      - "5436:5432"
+    volumes:
+      - auth_db_data:/var/lib/postgresql/data
+    networks:
+      - backend-network
+
+  # Redis for Rate Limiting
+  redis:
+    image: redis:7-alpine
+    container_name: redis
+    ports:
+      - "6379:6379"
+    networks:
+      - backend-network
+
+  # Core Service
+  core-service:
+    build:
+      context: ./core-service
+      dockerfile: Dockerfile
+    container_name: core-service
+    ports:
+      - "8081:8081"
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      ACTIVEMQ_BROKER_URL: tcp://activemq:61616
+      SPRING_DATASOURCE_URL: jdbc:postgresql://core-db:5432/core_service
+      SPRING_DATASOURCE_USERNAME: ${CORE_DB_USERNAME}
+      SPRING_DATASOURCE_PASSWORD: ${CORE_DB_PASSWORD}
+    depends_on:
+      - activemq
+      - core-db
+    networks:
+      - backend-network
+
+  # S3 Service
+  s3-service:
+    build:
+      context: ./s3-service
+      dockerfile: Dockerfile
+    container_name: s3-service
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      ACTIVEMQ_BROKER_URL: tcp://activemq:61616
+      SPRING_DATASOURCE_URL: jdbc:postgresql://s3-db:5432/s3_service
+      SPRING_DATASOURCE_USERNAME: ${S3_DB_USERNAME}
+      SPRING_DATASOURCE_PASSWORD: ${S3_DB_PASSWORD}
+      AWS_S3_BUCKET: ${AWS_S3_BUCKET}
+      AWS_S3_PUBLIC_BUCKET: ${AWS_S3_PUBLIC_BUCKET}
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
+      AWS_S3_REGION: ${AWS_S3_REGION}
+    depends_on:
+      - activemq
+      - s3-db
+    networks:
+      - backend-network
+
+  # User Service
+  user-service:
+    build:
+      context: ./user-service
+      dockerfile: Dockerfile
+    container_name: user-service
+    ports:
+      - "8084:8084"
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      ACTIVEMQ_BROKER_URL: tcp://activemq:61616
+      ACTIVEMQ_USER: admin
+      ACTIVEMQ_PASSWORD: admin
+      SPRING_DATASOURCE_URL: jdbc:postgresql://user-db:5432/userdb
+      SPRING_DATASOURCE_USERNAME: ${USER_DB_USERNAME}
+      SPRING_DATASOURCE_PASSWORD: ${USER_DB_PASSWORD}
+    depends_on:
+      - activemq
+      - user-db
+    networks:
+      - backend-network
+
+  # Auth Service
+  auth-service:
+    build:
+      context: ./auth-service
+      dockerfile: Dockerfile
+    container_name: auth-service
+    ports:
+      - "8085:8085"
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      ACTIVEMQ_BROKER_URL: tcp://activemq:61616
+      SPRING_DATASOURCE_URL: jdbc:postgresql://auth-db:5432/authdb
+      SPRING_DATASOURCE_USERNAME: ${AUTH_DB_USERNAME}
+      SPRING_DATASOURCE_PASSWORD: ${AUTH_DB_PASSWORD}
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      USER_SERVICE_URL: http://user-service:8084
+      JWT_PUBLIC_KEY: ${JWT_PUBLIC_KEY}
+    depends_on:
+      - activemq
+      - auth-db
+      - redis
+      - user-service
+    networks:
+      - backend-network
+
+  # GraphQL Gateway
+  graphql-gateway:
+    build:
+      context: ./graphql-gateway
+      dockerfile: Dockerfile
+    container_name: graphql-gateway
+    ports:
+      - "8082:8082"
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      ACTIVEMQ_BROKER_URL: tcp://activemq:61616
+      SERVICES_CORE_URL: http://core-service:8081
+      SERVICES_S3_URL: http://s3-service:8080
+      SERVICES_USER_URL: http://user-service:8084
+      SERVICES_AUTH_URL: http://auth-service:8085
+    depends_on:
+      - activemq
+      - core-service
+      - s3-service
+      - user-service
+      - auth-service
+    networks:
+      - backend-network
+
+volumes:
+  core_db_data:
+  s3_db_data:
+  user_db_data:
+  auth_db_data:
+
+networks:
+  backend-network:
+    driver: bridge

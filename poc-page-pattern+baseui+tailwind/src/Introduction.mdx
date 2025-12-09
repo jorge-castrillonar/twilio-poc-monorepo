@@ -1,0 +1,149 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Introduction" />
+
+# Twilio Design System - PoC
+
+Bienvenido a la documentación interactiva de componentes del **Proof of Concept** del nuevo Design System de Twilio.
+
+## 🎯 Propósito
+
+Este proyecto demuestra la implementación completa de los patrones de diseño de Twilio usando:
+
+- **React 18** + **TypeScript**
+- **TailwindCSS** para estilos
+- **Vite** como build tool
+- **Storybook** para documentación interactiva
+
+## 📐 Patrones Implementados
+
+### 1. **Page Pattern**
+Patrón base para todas las páginas de la aplicación:
+- Estructura consistente de página
+- Header con título, descripción y acciones
+- Contenedor responsivo con márgenes y padding
+
+### 2. **DataTablePage Pattern**
+Patrón especializado para páginas con tablas de datos:
+- Integración de búsqueda
+- Headers configurables
+- Renderizado de columnas personalizable
+- Manejo de estados vacíos y loading
+
+### 3. **Header Pattern**
+Componente PageHeader con:
+- Título principal
+- Descripción opcional
+- Área de acciones (botones, filtros)
+- Layout flexible
+
+### 4. **Search Pattern**
+Barra de búsqueda con:
+- Input controlado
+- Ícono de búsqueda
+- Placeholder configurable
+- Estilos consistentes
+
+### 5. **Table Pattern**
+Tabla de datos completa con:
+- Headers responsivos
+- Columnas personalizables
+- Renderizado de celdas flexible
+- Estados hover y selección
+
+## 🎨 Componentes Base
+
+### Interacción
+- **Button**: Botones con variantes primary, secondary, danger, ghost
+- **Input**: Campos de formulario con validación
+- **SearchBar**: Búsqueda con debounce
+
+### Feedback
+- **Alert**: Mensajes de success, error, warning, info
+- **Modal**: Diálogos modales con overlay
+
+### Layout
+- **Page**: Container principal
+- **PageHeader**: Header de página
+- **AppLayout**: Layout con navegación
+- **DataTablePage**: Página completa con tabla
+
+### Páginas Completas
+- **LoginPage**: Autenticación de usuarios
+- **MFAPage**: Configuración de autenticación de dos factores
+- **FilesPage**: Gestión de archivos con upload
+
+## 🚀 Características
+
+### Autenticación
+- Login con email/password
+- JWT tokens
+- Protected routes
+- LocalStorage persistence
+
+### MFA (Multi-Factor Authentication)
+- Configuración TOTP
+- QR code generation
+- Códigos de backup
+- Enable/disable MFA
+
+### Gestión de Archivos
+- Upload a S3 via pre-signed URLs
+- Lista de archivos con búsqueda
+- Estados de progreso
+- Manejo de errores
+
+## 🎨 Tokens de Design
+
+### Colores
+```css
+--twilio-red: #F22F46
+--twilio-red-dark: #D81F3A
+--twilio-blue: #0263E0
+--twilio-blue-dark: #0250BC
+--twilio-gray-50: #F4F4F6
+--twilio-gray-900: #121C2D
+```
+
+### Espaciado
+Siguiendo escala de Tailwind: `4, 8, 12, 16, 24, 32, 48, 64px`
+
+### Tipografía
+- **Font**: Inter (sans-serif)
+- **Tamaños**: sm (14px), base (16px), lg (18px), xl (20px), 2xl (24px)
+- **Pesos**: normal (400), medium (500), semibold (600), bold (700)
+
+## 📚 Cómo usar esta documentación
+
+1. **Explora los componentes** en el menú lateral
+2. **Prueba las variantes** usando los controles interactivos
+3. **Revisa el código** en la pestaña "Show code"
+4. **Verifica accesibilidad** con los addons de Storybook
+
+## 🔗 Integraciones
+
+### Backend GraphQL
+El proyecto se integra con un backend GraphQL que proporciona:
+- Autenticación y manejo de sesiones
+- Setup y validación de MFA
+- Generación de URLs de upload a S3
+- Consulta de archivos del usuario
+
+### Endpoints Implementados
+- `login`: Autenticación de usuario
+- `setupMfa`: Inicialización de MFA
+- `enableMfa`: Activación de MFA
+- `disableMfa`: Desactivación de MFA
+- `generateUploadUrl`: Pre-signed URL para S3
+- `completeUpload`: Confirmación de upload
+- `files`: Lista de archivos del usuario
+
+## 📖 Recursos
+
+- [Figma Design System](https://www.figma.com/design/rEkf72j5neMk0C4jFpDEcE/)
+- [Frontend Integration Guide](./FRONTEND_INTEGRATION_GUIDE.md)
+- [GitHub Repository](https://github.com/MobileAWS/CCAI-Collections)
+
+---
+
+**Stack Tecnológico**: React 18.3 • TypeScript 5.6 • Vite 5.4 • TailwindCSS 3.4 • Storybook 8.0

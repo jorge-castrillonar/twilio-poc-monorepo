@@ -1,0 +1,15 @@
+{
+  "MonetaryAmount": {
+    "amount": {
+      "id": "MapParser",
+      "type": "data",
+      "value": "AMOUNT",
+      "dataType": "amount"
+    },
+    "currency": {
+      "id": "MapParser",
+      "type": "static",
+      "value": "USD"
+    }
+  }
+}

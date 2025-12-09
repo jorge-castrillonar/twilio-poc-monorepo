@@ -1,0 +1,35 @@
+{
+  "PostalAddress": {
+    "name": {
+      "type": "Name"
+    },
+    "streetLine1": {
+      "type": "String",
+      "description": "Street address"
+    },
+    "streetLine2": {
+      "type": "String",
+      "description": "Unit number or PO BOX"
+    },
+    "city": {
+      "required": true,
+      "type": "String",
+      "description": "City of address"
+    },
+    "state": {
+      "required": true,
+      "type": "String",
+      "description": "Two-digit state code. Ex: NY, CA"
+    },
+    "zipcode": {
+      "required": true,
+      "type": "String",
+      "description": "Postal code for address"
+    },
+    "countryCode": {
+      "required": true,
+      "type": "String",
+      "description": "Code for country. Ex: US"
+    }
+  }
+}

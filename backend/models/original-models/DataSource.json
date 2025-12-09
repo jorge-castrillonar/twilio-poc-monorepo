@@ -1,0 +1,8 @@
+{
+  "DataSource": {
+    "type": {
+      "type": "Enum",
+      "description": "CREDITOR when data is provided by creditor, CUSTOMER when the customer provides information directly to TrueAccord"
+    }
+  }
+}

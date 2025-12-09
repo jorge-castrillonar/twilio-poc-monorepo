@@ -1,0 +1,472 @@
+{
+  "customers": [
+    {
+      "name": {
+        "firstName": {
+          "id": "MapParser",
+          "type": "data",
+          "value": "FIRST_NAME"
+        },
+        "middleName": {
+          "id": "MapParser",
+          "type": "static",
+          "value": ""
+        },
+        "lastName": {
+          "id": "MapParser",
+          "type": "data",
+          "value": "LAST_NAME"
+        }
+      },
+      "dateOfBirth": {
+        "year": {
+          "id": "MapParser",
+          "type": "expression",
+          "value": "function process(data) { if(data['DATE_OF_BIRTH'] && data['DATE_OF_BIRTH'].length === 8){ return parseInt(data['DATE_OF_BIRTH'].substring(0, 4)).toString()} return '';  }",
+          "dataType": "number"
+        },
+        "month": {
+          "id": "MapParser",
+          "type": "expression",
+          "value": "function process(data) { if(data['DATE_OF_BIRTH'] && data['DATE_OF_BIRTH'].length === 8){ return parseInt(data['DATE_OF_BIRTH'].substring(4, 6)).toString()} return '';  }",
+          "dataType": "number"
+        },
+        "day": {
+          "id": "MapParser",
+          "type": "expression",
+          "value": "function process(data) { if(data['DATE_OF_BIRTH'] && data['DATE_OF_BIRTH'].length === 8){ return parseInt(data['DATE_OF_BIRTH'].substring(6, 8)).toString()} return '';  }",
+          "dataType": "number"
+        }
+      },
+      "businesses": [
+        {
+          "name": {
+            "id": "MapParser",
+            "type": "static",
+            "value": ""
+          }
+        }
+      ],
+      "addresses": [
+        {
+          "streetLine1": {
+            "id": "MapParser",
+            "type": "data",
+            "value": "ADDRESS_1"
+          },
+          "streetLine2": {
+            "id": "MapParser",
+            "type": "data",
+            "value": "ADDRESS_2"
+          },
+          "city": {
+            "id": "MapParser",
+            "type": "data",
+            "value": "CITY"
+          },
+          "state": {
+            "id": "MapParser",
+            "type": "data",
+            "value": "STATE/PROVINCE"
+          },
+          "zipcode": {
+            "id": "MapParser",
+            "type": "data",
+            "value": "POSTAL_CODE"
+          },
+          "countryCode": {
+            "id": "MapParser",
+            "type": "static",
+            "value": "US"
+          }
+        }
+      ],
+      "phones": [
+        {
+          "phoneNumber": {
+            "id": "MapParser",
+            "type": "data",
+            "value": "PHONE"
+          },
+          "types": {
+            "id": "MapParser",
+            "type": "expression",
+            "value": "function process(data) { if (data['PHONE_TYPE']) return getPhoneType(data['PHONE_TYPE']); else return ''; }",
+            "dataType": "number"
+          }
+        }
+      ],
+      "emails": [
+        {
+          "email": {
+            "id": "MapParser",
+            "type": "data",
+            "value": "EMAIL"
+          }
+        }
+      ],
+      "reference": {
+        "id": "MapParser",
+        "type": "data",
+        "value": "BFRAME_ID"
+      },
+      "ssn": {
+        "id": "MapParser",
+        "type": "expression",
+        "value": "function process(data) { return getSSN(data); }"
+      },
+      "debts": [
+        {
+          "explicitOutOfStatuteDate": {
+            "year": {
+              "id": "MapParser",
+              "type": "expression",
+              "value": "function process(data) { if(data['OOS_DATE'] && data['OOS_DATE'].length === 8){ return parseInt(data['OOS_DATE'].substring(0, 4)).toString()} return '';  }",
+              "dataType": "number"
+            },
+            "month": {
+              "id": "MapParser",
+              "type": "expression",
+              "value": "function process(data) { if(data['OOS_DATE'] && data['OOS_DATE'].length === 8){ return parseInt(data['OOS_DATE'].substring(4, 6)).toString()} return '';  }",
+              "dataType": "number"
+            },
+            "day": {
+              "id": "MapParser",
+              "type": "expression",
+              "value": "function process(data) { if(data['OOS_DATE'] && data['OOS_DATE'].length === 8){ return parseInt(data['OOS_DATE'].substring(6, 8)).toString()} return '';  }",
+              "dataType": "number"
+            }
+          },
+          "explicitOutOfStatuteFlag": {
+            "id": "MapParser",
+            "type": "expression",
+            "value": "function process(data) { if(data['OOS_DATE'] && data['OOS_DATE'].length === 8){return true;} return ''; }",
+            "dataType": "number"
+          },
+          "hasSentCbrNegativeNotice": {
+            "id": "MapParser",
+            "type": "static",
+            "value": "false",
+            "dataType": "number"
+          },
+          "creditBureauReportable": {
+            "id": "MapParser",
+            "type": "expression",
+            "value": "function process(data) { if(data['TBD_LETTER_VARIABLE'] && (data['TBD_LETTER_VARIABLE'] === 'Y' || data['TBD_LETTER_VARIABLE'] === 'A')){ return false;} return true;}",
+            "dataType": "number"
+          },
+          "clientFields": [
+            {
+              "key": {
+                "id": "MapParser",
+                "type": "static",
+                "value": "PORTFOLIO1"
+              },
+              "value": {
+                "id": "MapParser",
+                "type": "data",
+                "value": "PORTFOLIO1"
+              }
+            },
+            {
+              "key": {
+                "id": "MapParser",
+                "type": "static",
+                "value": "REMOTE_ID"
+              },
+              "value": {
+                "id": "MapParser",
+                "type": "data",
+                "value": "REMOTE_ID"
+              }
+            },
+            {
+              "key": {
+                "id": "MapParser",
+                "type": "static",
+                "value": "PORTFOLIO2"
+              },
+              "value": {
+                "id": "MapParser",
+                "type": "data",
+                "value": "PORTFOLIO2"
+              }
+            },
+            {
+              "key": {
+                "id": "MapParser",
+                "type": "static",
+                "value": "ORIGINAL_ACCOUNT_ID"
+              },
+              "value": {
+                "id": "MapParser",
+                "type": "data",
+                "value": "ORIGINAL_ACCOUNT_ID"
+              }
+            },
+            {
+              "key": {
+                "id": "MapParser",
+                "type": "static",
+                "value": "DATE_PLACED_TO_THIS_AGENCY"
+              },
+              "value": {
+                "id": "MapParser",
+                "type": "data",
+                "value": "DATE_PLACED_TO_THIS_AGENCY"
+              }
+            }
+          ],
+          "product": {
+            "id": "MapParser",
+            "type": "expression",
+            "value": "function process(data) { if (data['NAME_CREDITOR']) return data['NAME_CREDITOR']; else return ''; }"
+          },
+          "originalCreditorAccountNumber": {
+            "id": "MapParser",
+            "type": "data",
+            "value": "ORIGINAL_ACCOUNT_ID"
+          },
+          "originalCreditorName": {
+            "id": "MapParser",
+            "type": "expression",
+            "value": "function process(data) {return getOriginalCreditorName(data);}"
+          },
+          "postChargeOffInformation": {
+            "lastPaymentAmountSinceChargeOff": {
+              "amount": {
+                "id": "MapParser",
+                "type": "expression",
+                "value": "function process(data) { if (data['AMOUNT_LAST_PAID']) return data['AMOUNT_LAST_PAID']; else return '0.00';}",
+                "dataType": "amount"
+              },
+              "currency": {
+                "id": "MapParser",
+                "type": "static",
+                "value": "USD"
+              }
+            },
+            "chargeOffTimestamp": {
+              "id": "MapParser",
+              "type": "expression",
+              "value": "function process(data) {if(data['CHARGE_OFF_DATE'] && data['CHARGE_OFF_DATE'].length === 8) {var date = data['CHARGE_OFF_DATE']; return new Date(date.substring(0, 4), parseInt(date.substring(4, 6)) - 1, date.substring(6, 8) ).getTime().toString();} else return '';}",
+              "dataType": "number"
+            },
+            "balanceAtChargeOff": {
+              "amount": {
+                "id": "MapParser",
+                "type": "data",
+                "value": "VALIDATION_NOTICE_ITEMIZATION_DEBT_AMOUNT",
+                "dataType": "amount"
+              },
+              "currency": {
+                "id": "MapParser",
+                "type": "static",
+                "value": "USD"
+              }
+            },
+            "interestAccruedSinceChargeOff": {
+              "amount": {
+                "id": "MapParser",
+                "type": "data",
+                "value": "VALIDATION_NOTICE_ITEMIZATION_INTEREST",
+                "dataType": "amount"
+              },
+              "currency": {
+                "id": "MapParser",
+                "type": "static",
+                "value": "USD"
+              }
+            },
+            "feesAccruedSinceChargeOff": {
+              "amount": {
+                "id": "MapParser",
+                "type": "data",
+                "value": "VALIDATION_NOTICE_ITEMIZATION_FEES",
+                "dataType": "amount"
+              },
+              "currency": {
+                "id": "MapParser",
+                "type": "static",
+                "value": "USD"
+              }
+            },
+            "totalPaidSinceChargeOff": {
+              "amount": {
+                "id": "MapParser",
+                "type": "data",
+                "value": "VALIDATION_NOTICE_ITEMIZATION_PAYMENTS_AND_CREDITS",
+                "dataType": "amount"
+              },
+              "currency": {
+                "id": "MapParser",
+                "type": "static",
+                "value": "USD"
+              }
+            }
+          },
+          "initialPrincipal": {
+            "amount": {
+              "id": "MapParser",
+              "type": "data",
+              "value": "ACCOUNT_BALANCE",
+              "dataType": "amount"
+            },
+            "currency": {
+              "id": "MapParser",
+              "type": "static",
+              "value": "USD"
+            }
+          },
+          "initialInterest": {
+            "amount": {
+              "id": "MapParser",
+              "type": "static",
+              "value": "0",
+              "dataType": "number"
+            },
+            "currency": {
+              "id": "MapParser",
+              "type": "static",
+              "value": "USD"
+            }
+          },
+          "initialFees": {
+            "amount": {
+              "id": "MapParser",
+              "type": "static",
+              "value": "0",
+              "dataType": "number"
+            },
+            "currency": {
+              "id": "MapParser",
+              "type": "static",
+              "value": "USD"
+            }
+          },
+          "lastPaymentTimestamp": {
+            "id": "MapParser",
+            "type": "expression",
+            "value": "function process(data) {if(data['DATE_LAST_PAID'] && data['DATE_LAST_PAID'].length === 8) {var date = data['DATE_LAST_PAID']; return new Date(date.substring(0, 4), parseInt(date.substring(4, 6)) - 1, date.substring(6, 8) ).getTime().toString();} else return '';}",
+            "dataType": "number"
+          },
+          "accountOpenTimestamp": {
+            "id": "MapParser",
+            "type": "expression",
+            "value": "function process(data) {if(data['OPENED_DATE_CREDITOR']) {var date = data['OPENED_DATE_CREDITOR'].split('-'); return new Date(date[0], date[1] - 1, date[2]).getTime().toString();} else return '';}",
+            "dataType": "number"
+          },
+          "defaultTimestamp": {
+            "id": "MapParser",
+            "type": "expression",
+            "value": "function process(data) { if(data['DEFAULT_DATE'] && data['DEFAULT_DATE'].length === 8) { var date = data['DEFAULT_DATE']; return new Date(date.substring(0, 4), parseInt(date.substring(4, 6)) - 1, date.substring(6, 8)).getTime().toString() }  else return '';}",
+            "dataType": "number"
+          },
+          "transactionId": {
+            "id": "MapParser",
+            "type": "data",
+            "value": "BFRAME_ID"
+          },
+          "itemizationTimestamp": {
+            "id": "MapParser",
+            "type": "expression",
+            "dataType": "number",
+            "value": "function process(data) { var year = data['VALIDATION_NOTICE_ITEMIZATION_DATE'].substring(0,4); var month = data['VALIDATION_NOTICE_ITEMIZATION_DATE'].substring(4,6); var day = data['VALIDATION_NOTICE_ITEMIZATION_DATE'].substring(6,8); return new Date(year, month - 1, day).getTime().toString() }"
+          },
+          "itemizationBreakdown": {
+            "itemizationPrincipal": {
+              "amount": {
+                "id": "MapParser",
+                "type": "data",
+                "value": "VALIDATION_NOTICE_ITEMIZATION_DEBT_AMOUNT",
+                "dataType": "amount"
+              },
+              "currency": {
+                "id": "MapParser",
+                "type": "static",
+                "value": "USD"
+              }
+            },
+            "itemizationBuckets": [
+              {
+                "bucketType": {
+                  "id": "MapParser",
+                  "type": "static",
+                  "value": "DEBIT"
+                },
+                "contentKey": {
+                  "id": "MapParser",
+                  "type": "static",
+                  "value": "itemizationFees"
+                },
+                "total": {
+                  "amount": {
+                    "id": "MapParser",
+                    "type": "data",
+                    "value": "VALIDATION_NOTICE_ITEMIZATION_FEES",
+                    "dataType": "amount"
+                  },
+                  "currency": {
+                    "id": "MapParser",
+                    "type": "static",
+                    "value": "USD"
+                  }
+                }
+              },
+              {
+                "bucketType": {
+                  "id": "MapParser",
+                  "type": "static",
+                  "value": "DEBIT"
+                },
+                "contentKey": {
+                  "id": "MapParser",
+                  "type": "static",
+                  "value": "itemizationInterest"
+                },
+                "total": {
+                  "amount": {
+                    "id": "MapParser",
+                    "type": "data",
+                    "value": "VALIDATION_NOTICE_ITEMIZATION_INTEREST",
+                    "dataType": "amount"
+                  },
+                  "currency": {
+                    "id": "MapParser",
+                    "type": "static",
+                    "value": "USD"
+                  }
+                }
+              },
+              {
+                "bucketType": {
+                  "id": "MapParser",
+                  "type": "static",
+                  "value": "CREDIT"
+                },
+                "contentKey": {
+                  "id": "MapParser",
+                  "type": "static",
+                  "value": "itemizationPaymentsAndCredits"
+                },
+                "total": {
+                  "amount": {
+                    "id": "MapParser",
+                    "type": "data",
+                    "value": "VALIDATION_NOTICE_ITEMIZATION_PAYMENTS_AND_CREDITS",
+                    "dataType": "amount"
+                  },
+                  "currency": {
+                    "id": "MapParser",
+                    "type": "static",
+                    "value": "USD"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,646 @@
+{
+  "dataModels": {
+    "Customer": {
+      "name": {
+        "firstName": {
+          "required": true,
+          "type": "String",
+          "description": "Full name of customer"
+        },
+        "middleName": {
+          "required": false,
+          "type": "String",
+          "description": "Customer middle name"
+        },
+        "lastName": {
+          "required": true,
+          "type": "String",
+          "description": "Customer last name"
+        }
+      },
+      "dateOfBirth": {
+        "year": {
+          "required": true,
+          "type": "Integer",
+          "description": "4-digit year, ex: 2021"
+        },
+        "month": {
+          "required": true,
+          "type": "Integer",
+          "description": "Takes values 1-12"
+        },
+        "day": {
+          "required": true,
+          "type": "Integer",
+          "description": "Takes values 1-31"
+        }
+      },
+      "businesses": {
+        "type": "Array",
+        "description": "Any business names associated with the Customer",
+        "items": {
+          "name": {
+            "type": "String",
+            "description": "Name of business"
+          },
+          "url": {
+            "type": "String",
+            "description": "Website associated with business. Start with http(s)://...."
+          }
+        }
+      },
+      "addresses": {
+        "required": true,
+        "type": "Array",
+        "description": "Must provide at least one Address",
+        "items": {
+          "streetLine1": {
+            "type": "String",
+            "description": "Street address"
+          },
+          "streetLine2": {
+            "type": "String",
+            "description": "Unit number or PO BOX"
+          },
+          "city": {
+            "required": true,
+            "type": "String",
+            "description": "City of address"
+          },
+          "state": {
+            "required": true,
+            "type": "String",
+            "description": "Two-digit state code. Ex: NY, CA"
+          },
+          "zipcode": {
+            "required": true,
+            "type": "String",
+            "description": "Postal code for address"
+          },
+          "countryCode": {
+            "required": true,
+            "type": "String",
+            "description": "Code for country. Ex: US"
+          },
+          "types": {
+            "type": "Array",
+            "description": "Array with one or both of: WORK, HOME"
+          }
+        }
+      },
+      "phones": {
+        "type": "Array",
+        "description": "Phone numbers associated with the Customer",
+        "items": {
+          "phoneNumber": {
+            "required": true,
+            "type": "String",
+            "description": "Nine-digit phone number formatted ###-###-####. Ex: 444-555-6666"
+          },
+          "types": {
+            "type": "Array",
+            "description": "Array with one or more of: WORK, HOME, CELL, FAX, BUSINESS"
+          }
+        }
+      },
+      "emails": {
+        "required": true,
+        "type": "Array",
+        "description": "Must provide at least one Email",
+        "items": {
+          "email": {
+            "required": true,
+            "type": "String",
+            "description": "Must be valid email address"
+          },
+          "types": {
+            "type": "String",
+            "description": "Array with one or more of: WORK, HOME"
+          }
+        }
+      },
+      "comments": {
+        "type": "Array",
+        "description": "Can be used to provide additional context about this customer"
+      },
+      "reference": {
+        "type": "String",
+        "description": "Used to attach your system's customer unique ID to this object. Up to 1024 characters long"
+      },
+      "debts": {
+        "required": true,
+        "type": "Array",
+        "description": "Any existing debts associated with the customer. Must provide at least one Debt"
+      },
+      "ssn": {
+        "type": "String",
+        "description": "The Customer's Social Security Number. Should be formatted only as digits. (Ex: 123456789)"
+      }
+    },
+    "Debt": {
+      "biller": {
+        "type": "String",
+        "description": "For aggregators and marketplaces: this field stores the name of your sub merchant"
+      },
+      "product": {
+        "type": "String",
+        "description": "Description of the product or service associated with this debt"
+      },
+      "initialPrincipal": {
+        "required": true,
+        "type": "MonetaryAmount",
+        "description": "Amount of money owed to you in cents"
+      },
+      "initialInterest": {
+        "required": true,
+        "type": "MonetaryAmount",
+        "description": "The amount of interest owed to you by this customer by the time it's handed off to TrueAccord"
+      },
+      "initialFees": {
+        "required": true,
+        "type": "MonetaryAmount",
+        "description": "The amount of fees owed to you by this customer due to not paying initialPrincipal"
+      },
+      "transactionId": {
+        "type": "String",
+        "description": "You can use to store a reference to the transactionId on your system. Up to 1024 characters"
+      },
+      "transactionIp": {
+        "type": "String",
+        "description": "IP address associated with this transaction. Either in IPv4 or IPv6 format"
+      },
+      "transactionTimestamp": {
+        "type": "Timestamp",
+        "description": "Time that the transaction leading to the debt occurred, if applicable"
+      },
+      "defaultTimestamp": {
+        "type": "Timestamp",
+        "description": "Time customer defaulted on the debt. This should be after the transactionTimestamp"
+      },
+      "accountOpenTimestamp": {
+        "type": "Timestamp",
+        "description": "Time the customer initially opened or created an account with you, if applicable"
+      },
+      "clientFields": {
+        "type": "Array",
+        "description": "Key-value pairs that are client specific",
+        "items": {
+          "key": {
+            "required": true,
+            "type": "String",
+            "description": "The key specifying the type of information"
+          },
+          "value": {
+            "required": true,
+            "type": "String",
+            "description": "The value containing the information"
+          }
+        }
+      },
+      "sendCbrNegativeNotice": {
+        "type": "Boolean",
+        "description": "Flag indicating whether a negative notice WILL BE submitted to a credit bureau in the future"
+      },
+      "hasSentCbrNegativeNotice": {
+        "type": "Boolean",
+        "description": "Flag indicating whether a negative notice HAS BEEN submitted to a credit bureau in the past"
+      },
+      "postChargeOffInformation": {
+        "type": "Object",
+        "description": "Object with information relevant for Post-ChargeOff debts. Required for accounts in the state of NY",
+        "properties": {
+          "chargeOffTimestamp": {
+            "type": "Timestamp",
+            "description": "The time of charge-off"
+          },
+          "balanceAtChargeOff": {
+            "type": "MonetaryAmount",
+            "description": "The balance at time of charge-off"
+          },
+          "feesAccruedSinceChargeOff": {
+            "type": "MonetaryAmount",
+            "description": "The fees accrued since time of charge-off"
+          },
+          "interestAccruedSinceChargeOff": {
+            "type": "MonetaryAmount",
+            "description": "The interest accrued since time of charge-off"
+          },
+          "totalPaidSinceChargeOff": {
+            "type": "MonetaryAmount",
+            "description": "The total amount paid since time of charge-off"
+          }
+        }
+      },
+      "itemizationTimestamp": {
+        "type": "Timestamp",
+        "description": "Unix Time in milliseconds, of the itemization date"
+      },
+      "initialPaymentsAndCredits": {
+        "type": "MonetaryAmount",
+        "description": "The monetary credits the customer has towards the debt, or the amount of money the customer has paid towards the debt, before the debt came to collections"
+      },
+      "isInitialPrincipalBeforePaymentsAndCredits": {
+        "type": "Boolean",
+        "description": "Flag indicating whether the initialPrincipal includes initialPaymentsAndCredits"
+      },
+      "creditorName": {
+        "type": "String",
+        "description": "The name of the DOING_BUSINESS_AS creditor brand to associate with this debt"
+      },
+      "originalCreditorName": {
+        "type": "String",
+        "description": "The name of the ORIGINAL creditor brand to associate with this debt"
+      }
+    },
+    "MonetaryAmount": {
+      "amount": {
+        "required": true,
+        "type": "Integer",
+        "description": "Amount of money in cents"
+      },
+      "currency": {
+        "required": true,
+        "type": "String",
+        "description": "Currency of Monetary Amount. Currently the system only supports USD"
+      }
+    },
+    "BalanceSnapshot": {
+      "principal": {
+        "required": true,
+        "type": "MonetaryAmount",
+        "description": "The absolute value for the principal"
+      },
+      "interest": {
+        "type": "MonetaryAmount",
+        "description": "The absolute value for the interest. If not provided in request, default value is 0"
+      },
+      "fees": {
+        "type": "MonetaryAmount",
+        "description": "The absolute value for the fees. If not provided in request, default value is 0"
+      },
+      "costs": {
+        "type": "MonetaryAmount",
+        "description": "The absolute value for the costs. If not provided in request, default value is 0"
+      },
+      "notes": {
+        "type": "String",
+        "description": "A note about why this balance has been updated"
+      }
+    },
+    "Payment": {
+      "meta": {
+        "type": "Meta",
+        "description": "Only includes id and timeCreated"
+      },
+      "amount": {
+        "required": true,
+        "type": "MonetaryAmount",
+        "description": "The amount of the payment. Must be positive"
+      },
+      "payee": {
+        "required": true,
+        "type": "Enum",
+        "description": "Identifies who received the payment: CREDITOR or TRUEACCORD"
+      },
+      "transactionReference": {
+        "type": "String",
+        "description": "Reference to associate this payment to a transaction in your internal system"
+      },
+      "note": {
+        "type": "String",
+        "description": "Note about the payment"
+      },
+      "transactionType": {
+        "required": true,
+        "type": "Enum",
+        "description": "PAYMENT, RETURNED_PAYMENT, or REFUND"
+      },
+      "paymentTimestamp": {
+        "type": "Timestamp",
+        "description": "Optional for informational purposes"
+      }
+    },
+    "PaymentPlan": {
+      "application": {
+        "type": "PaymentPlanApplication",
+        "properties": {
+          "originatingTokenId": {
+            "type": "String"
+          },
+          "installments": {
+            "type": "Array",
+            "items": {
+              "dueDate": {
+                "type": "Timestamp"
+              },
+              "amount": {
+                "type": "MonetaryAmount"
+              }
+            }
+          },
+          "startDate": {
+            "type": "Timestamp",
+            "description": "DEPRECATED"
+          },
+          "frequency": {
+            "type": "Enum",
+            "description": "UNKNOWN, WEEKLY, BI_WEEKLY, MONTHLY, CUSTOM"
+          },
+          "consent": {
+            "type": "Consent",
+            "properties": {
+              "ip": {
+                "type": "String",
+                "description": "String representation of IP address"
+              },
+              "time": {
+                "required": true,
+                "type": "Timestamp",
+                "description": "Time consent was given"
+              }
+            }
+          },
+          "debtId": {
+            "type": "String",
+            "description": "The debtId this application refers to"
+          },
+          "amountToPay": {
+            "type": "MonetaryAmount",
+            "description": "The principal amount that needs to be paid for completing this plan"
+          },
+          "discount": {
+            "type": "MonetaryAmount",
+            "description": "The discount offered as an absolute number"
+          }
+        }
+      },
+      "nextInstallment": {
+        "type": "Number",
+        "description": "Index of the next installment to be paid"
+      },
+      "paymentMethodInfo": {
+        "type": "PaymentMethodInfo"
+      },
+      "revocation": {
+        "type": "PaymentPlanRevocation"
+      },
+      "fullyPaid": {
+        "type": "Boolean",
+        "description": "True if payment plan fully paid"
+      },
+      "installments": {
+        "type": "Array"
+      },
+      "debtStateId": {
+        "type": "String"
+      },
+      "isRecurring": {
+        "type": "Boolean"
+      }
+    },
+    "AttorneyRepresentation": {
+      "contactInfo": {
+        "type": "ContactInfo",
+        "properties": {
+          "name": {
+            "type": "String"
+          },
+          "phoneNumber": {
+            "type": "PhoneNumber"
+          },
+          "address": {
+            "type": "ContactAddress"
+          }
+        }
+      },
+      "email": {
+        "type": "String",
+        "description": "Email address for contacting the attorney"
+      },
+      "requestedBy": {
+        "type": "Enum",
+        "description": "REQUEST_BY_UNKNOWN, CUSTOMER, POWER_OF_ATTORNEY, CREDITOR, DEBT_CONSOLIDATOR, ATTORNEY, TRUEACCORD, ATTORNEY_DEBT_CONSOLIDATOR"
+      },
+      "communicationType": {
+        "type": "Enum",
+        "description": "COMMUNICATION_TYPE_UNKNOWN, WRITTEN, VERBAL"
+      },
+      "receivedPowerOfAttorneyDocumentation": {
+        "type": "Boolean"
+      }
+    },
+    "DebtConsolidatorRepresentation": {
+      "debtConsolidatorType": {
+        "type": "Enum",
+        "description": "Type of debt consolidator from predefined list"
+      },
+      "contactInfo": {
+        "type": "ContactInfo"
+      },
+      "email": {
+        "type": "String",
+        "description": "Email address for contacting the debt consolidator"
+      },
+      "requestedBy": {
+        "type": "Enum"
+      },
+      "communicationType": {
+        "type": "Enum"
+      },
+      "receivedPowerOfAttorneyDocumentation": {
+        "type": "Boolean"
+      },
+      "offerPercentOfBalance": {
+        "type": "Integer"
+      },
+      "offerDurationInMonths": {
+        "type": "Integer"
+      }
+    },
+    "CreditorBrand": {
+      "logoUrl": {
+        "type": "String"
+      },
+      "type": {
+        "required": true,
+        "type": "Enum",
+        "description": "DOING_BUSINESS_AS or ORIGINAL",
+        "default": "DOING_BUSINESS_AS"
+      },
+      "name": {
+        "required": true,
+        "type": "String"
+      },
+      "address": {
+        "type": "PostalAddress"
+      },
+      "meta": {
+        "type": "Meta"
+      },
+      "description": {
+        "type": "String"
+      },
+      "websiteUrl": {
+        "type": "String"
+      },
+      "brandDetails": {
+        "type": "BrandDetails",
+        "properties": {
+          "originalCreditor": {
+            "type": "String",
+            "description": "Original Creditor for the debt"
+          },
+          "merchant": {
+            "type": "String",
+            "description": "Original merchant associated with the debt"
+          },
+          "productType": {
+            "type": "Enum",
+            "description": "UNKNOWN or CARD"
+          }
+        }
+      }
+    },
+    "Creditor": {
+      "companyName": {
+        "type": "String"
+      },
+      "industry": {
+        "type": "String"
+      },
+      "environment": {
+        "type": "Enum",
+        "description": "LIVE, TEST, or INTERNAL_TEST"
+      },
+      "activationStatus": {
+        "type": "Enum",
+        "description": "ACTIVE, NOT_APPLIED, APPLICATION_UNDER_REVIEW, REJECTED, or OFFBOARDED"
+      },
+      "commissionPercentBasisPoint": {
+        "type": "Integer"
+      }
+    },
+    "Metadata": {
+      "id": {
+        "type": "String",
+        "description": "Unique identifier of the object in our system"
+      },
+      "isActive": {
+        "type": "Boolean",
+        "description": "Field which indicates whether an object is active in the system"
+      },
+      "isPrimary": {
+        "type": "Boolean",
+        "description": "Indicates whether that object has priority over others"
+      },
+      "timeCreated": {
+        "type": "Timestamp",
+        "description": "When object was created"
+      },
+      "lastModified": {
+        "type": "Timestamp",
+        "description": "When object was last modified"
+      }
+    },
+    "PostalAddress": {
+      "name": {
+        "type": "Name"
+      },
+      "streetLine1": {
+        "type": "String",
+        "description": "Street address"
+      },
+      "streetLine2": {
+        "type": "String",
+        "description": "Unit number or PO BOX"
+      },
+      "city": {
+        "required": true,
+        "type": "String",
+        "description": "City of address"
+      },
+      "state": {
+        "required": true,
+        "type": "String",
+        "description": "Two-digit state code. Ex: NY, CA"
+      },
+      "zipcode": {
+        "required": true,
+        "type": "String",
+        "description": "Postal code for address"
+      },
+      "countryCode": {
+        "required": true,
+        "type": "String",
+        "description": "Code for country. Ex: US"
+      }
+    },
+    "Date": {
+      "day": {
+        "required": true,
+        "type": "Integer",
+        "description": "Takes values 1-31"
+      },
+      "month": {
+        "required": true,
+        "type": "Integer",
+        "description": "Takes values 1-12"
+      },
+      "year": {
+        "required": true,
+        "type": "Integer",
+        "description": "4-digit year, ex: 2021"
+      }
+    },
+    "PhoneNumber": {
+      "phoneNumber": {
+        "type": "String",
+        "description": "The phone number to be used for contacting"
+      },
+      "dataSource": {
+        "type": "DataSource"
+      },
+      "consent": {
+        "type": "Consent"
+      },
+      "types": {
+        "type": "Array",
+        "description": "Array with one or more of: WORK, HOME, CELL, FAX, BUSINESS"
+      }
+    },
+    "DataSource": {
+      "type": {
+        "type": "Enum",
+        "description": "CREDITOR when data is provided by creditor, CUSTOMER when the customer provides information directly to TrueAccord"
+      }
+    },
+    "Error": {
+      "errorCode": {
+        "required": true,
+        "type": "String",
+        "description": "Error code about why data could not be ingested"
+      },
+      "message": {
+        "required": true,
+        "type": "String"
+      },
+      "reference": {
+        "type": "String"
+      }
+    },
+    "DuplicatedReference": {
+      "reference": {
+        "type": "String",
+        "description": "Refers to the reference field in the Customer data type"
+      },
+      "transactionId": {
+        "type": "String",
+        "description": "Refers to the transactionId field in the Debt data type"
+      }
+    },
+    "Timestamp": {
+      "type": "Integer",
+      "description": "Timestamps are in milliseconds since Jan 1st, 1970 UTC"
+    }
+  }
+}

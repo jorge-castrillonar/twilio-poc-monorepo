@@ -1,0 +1,16 @@
+{
+  "Error": {
+    "errorCode": {
+      "required": true,
+      "type": "String",
+      "description": "Error code about why data could not be ingested"
+    },
+    "message": {
+      "required": true,
+      "type": "String"
+    },
+    "reference": {
+      "type": "String"
+    }
+  }
+}

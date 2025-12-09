@@ -1,0 +1,50 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: core-service
+  activemq:
+    broker-url: tcp://localhost:61616
+    user: admin
+    password: admin
+  jms:
+    template:
+      default-destination: file.upload.request
+      delivery-mode: persistent
+      priority: 100
+      time-to-live: 36000
+      receive-timeout: 30000
+
+# JMS Queue Configuration
+jms:
+  queues:
+    file:
+      upload:
+        request: file.upload.request
+        response: file.upload.response
+      delete:
+        request: file.delete.request
+        response: file.delete.response
+    user:
+      operations:
+        request: user.operations.request
+        response: user.operations.response
+    auth:
+      operations:
+        request: auth.operations.request
+        response: auth.operations.response
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: always
+
+logging:
+  level:
+    com.allcode.core: DEBUG
+    org.springframework.jms: DEBUG

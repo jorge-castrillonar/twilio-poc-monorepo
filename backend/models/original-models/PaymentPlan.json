@@ -1,0 +1,80 @@
+{
+  "PaymentPlan": {
+    "application": {
+      "type": "PaymentPlanApplication",
+      "properties": {
+        "originatingTokenId": {
+          "type": "String"
+        },
+        "installments": {
+          "type": "Array",
+          "items": {
+            "dueDate": {
+              "type": "Timestamp"
+            },
+            "amount": {
+              "type": "MonetaryAmount"
+            }
+          }
+        },
+        "startDate": {
+          "type": "Timestamp",
+          "description": "DEPRECATED"
+        },
+        "frequency": {
+          "type": "Enum",
+          "description": "UNKNOWN, WEEKLY, BI_WEEKLY, MONTHLY, CUSTOM"
+        },
+        "consent": {
+          "type": "Consent",
+          "properties": {
+            "ip": {
+              "type": "String",
+              "description": "String representation of IP address"
+            },
+            "time": {
+              "required": true,
+              "type": "Timestamp",
+              "description": "Time consent was given"
+            }
+          }
+        },
+        "debtId": {
+          "type": "String",
+          "description": "The debtId this application refers to"
+        },
+        "amountToPay": {
+          "type": "MonetaryAmount",
+          "description": "The principal amount that needs to be paid for completing this plan"
+        },
+        "discount": {
+          "type": "MonetaryAmount",
+          "description": "The discount offered as an absolute number"
+        }
+      }
+    },
+    "nextInstallment": {
+      "type": "Number",
+      "description": "Index of the next installment to be paid"
+    },
+    "paymentMethodInfo": {
+      "type": "PaymentMethodInfo"
+    },
+    "revocation": {
+      "type": "PaymentPlanRevocation"
+    },
+    "fullyPaid": {
+      "type": "Boolean",
+      "description": "True if payment plan fully paid"
+    },
+    "installments": {
+      "type": "Array"
+    },
+    "debtStateId": {
+      "type": "String"
+    },
+    "isRecurring": {
+      "type": "Boolean"
+    }
+  }
+}

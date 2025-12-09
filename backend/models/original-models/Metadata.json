@@ -1,0 +1,24 @@
+{
+  "Metadata": {
+    "id": {
+      "type": "String",
+      "description": "Unique identifier of the object in our system"
+    },
+    "isActive": {
+      "type": "Boolean",
+      "description": "Field which indicates whether an object is active in the system"
+    },
+    "isPrimary": {
+      "type": "Boolean",
+      "description": "Indicates whether that object has priority over others"
+    },
+    "timeCreated": {
+      "type": "Timestamp",
+      "description": "When object was created"
+    },
+    "lastModified": {
+      "type": "Timestamp",
+      "description": "When object was last modified"
+    }
+  }
+}

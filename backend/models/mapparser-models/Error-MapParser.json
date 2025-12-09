@@ -1,0 +1,19 @@
+{
+  "Error": {
+    "errorCode": {
+      "id": "MapParser",
+      "type": "data",
+      "value": "ERROR_CODE"
+    },
+    "message": {
+      "id": "MapParser",
+      "type": "data",
+      "value": "ERROR_MESSAGE"
+    },
+    "reference": {
+      "id": "MapParser",
+      "type": "data",
+      "value": "ERROR_REFERENCE"
+    }
+  }
+}

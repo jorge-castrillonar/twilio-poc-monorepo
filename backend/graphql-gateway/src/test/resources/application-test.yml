@@ -1,0 +1,16 @@
+server:
+  port: 0
+
+spring:
+  activemq:
+    broker-url: vm://localhost
+  
+services:
+  core:
+    url: http://localhost:8081
+  s3:
+    url: http://localhost:8080
+
+logging:
+  level:
+    com.allcode.graphql: DEBUG

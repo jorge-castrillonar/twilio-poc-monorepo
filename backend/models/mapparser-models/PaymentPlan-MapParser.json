@@ -1,0 +1,106 @@
+{
+  "PaymentPlan": {
+    "application": {
+      "originatingTokenId": {
+        "id": "MapParser",
+        "type": "data",
+        "value": "PAYMENT_PLAN_TOKEN_ID"
+      },
+      "installments": [
+        {
+          "dueDate": {
+            "id": "MapParser",
+            "type": "expression",
+            "value": "function process(data) { if(data['INSTALLMENT_DUE_DATE'] && data['INSTALLMENT_DUE_DATE'].length === 8) { var date = data['INSTALLMENT_DUE_DATE']; return new Date(date.substring(0, 4), parseInt(date.substring(4, 6)) - 1, date.substring(6, 8)).getTime().toString(); } return ''; }",
+            "dataType": "number"
+          },
+          "amount": {
+            "amount": {
+              "id": "MapParser",
+              "type": "data",
+              "value": "INSTALLMENT_AMOUNT",
+              "dataType": "amount"
+            },
+            "currency": {
+              "id": "MapParser",
+              "type": "static",
+              "value": "USD"
+            }
+          }
+        }
+      ],
+      "frequency": {
+        "id": "MapParser",
+        "type": "expression",
+        "value": "function process(data) { if(data['PAYMENT_FREQUENCY']) { var freq = data['PAYMENT_FREQUENCY'].toUpperCase(); if(['UNKNOWN', 'WEEKLY', 'BI_WEEKLY', 'MONTHLY', 'CUSTOM'].includes(freq)) return freq; } return 'MONTHLY'; }"
+      },
+      "consent": {
+        "ip": {
+          "id": "MapParser",
+          "type": "data",
+          "value": "CONSENT_IP"
+        },
+        "time": {
+          "id": "MapParser",
+          "type": "expression",
+          "value": "function process(data) { if(data['CONSENT_TIME']) { return data['CONSENT_TIME']; } return new Date().getTime().toString(); }",
+          "dataType": "number"
+        }
+      },
+      "debtId": {
+        "id": "MapParser",
+        "type": "data",
+        "value": "DEBT_ID"
+      },
+      "amountToPay": {
+        "amount": {
+          "id": "MapParser",
+          "type": "data",
+          "value": "AMOUNT_TO_PAY",
+          "dataType": "amount"
+        },
+        "currency": {
+          "id": "MapParser",
+          "type": "static",
+          "value": "USD"
+        }
+      },
+      "discount": {
+        "amount": {
+          "id": "MapParser",
+          "type": "data",
+          "value": "DISCOUNT_AMOUNT",
+          "dataType": "amount"
+        },
+        "currency": {
+          "id": "MapParser",
+          "type": "static",
+          "value": "USD"
+        }
+      }
+    },
+    "nextInstallment": {
+      "id": "MapParser",
+      "type": "data",
+      "value": "NEXT_INSTALLMENT_NUMBER",
+      "dataType": "number"
+    },
+    "fullyPaid": {
+      "id": "MapParser",
+      "type": "expression",
+      "value": "function process(data) { if (data['FULLY_PAID']) { return data['FULLY_PAID'] === 'Y' || data['FULLY_PAID'] === 'true'; } return false; }",
+      "dataType": "boolean"
+    },
+    "debtStateId": {
+      "id": "MapParser",
+      "type": "data",
+      "value": "DEBT_STATE_ID"
+    },
+    "isRecurring": {
+      "id": "MapParser",
+      "type": "expression",
+      "value": "function process(data) { if (data['IS_RECURRING']) { return data['IS_RECURRING'] === 'Y' || data['IS_RECURRING'] === 'true'; } return false; }",
+      "dataType": "boolean"
+    }
+  }
+}

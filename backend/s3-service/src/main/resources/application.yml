@@ -1,0 +1,76 @@
+spring:
+  application:
+    name: s3handler-enterprise
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:dev}
+  servlet:
+    multipart:
+      max-file-size: 128MB
+      max-request-size: 128MB
+  security:
+    require-ssl: ${REQUIRE_SSL:false}
+
+server:
+  port: ${SERVER_PORT:8080}
+  error:
+    include-message: never
+    include-binding-errors: never
+  tomcat:
+    threads:
+      max: ${TOMCAT_MAX_THREADS:200}
+      min-spare: ${TOMCAT_MIN_SPARE_THREADS:10}
+    max-connections: ${TOMCAT_MAX_CONNECTIONS:8192}
+    accept-count: ${TOMCAT_ACCEPT_COUNT:100}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,metrics,prometheus,info
+      base-path: /actuator
+  endpoint:
+    health:
+      show-details: when-authorized
+      probes:
+        enabled: true
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+    distribution:
+      percentiles-histogram:
+        http.server.requests: true
+  tracing:
+    sampling:
+      probability: ${TRACING_SAMPLE_RATE:0.1}
+
+logging:
+  level:
+    root: ${LOG_LEVEL:INFO}
+    com.allcode.s3handler: ${APP_LOG_LEVEL:DEBUG}
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level [%X{traceId:-},%X{spanId:-}] %logger{36} - %msg%n"
+
+app:
+  aws:
+    s3:
+      region: ${AWS_S3_REGION:us-east-1}
+      bucket: ${AWS_S3_BUCKET}
+      public-bucket: ${AWS_S3_PUBLIC_BUCKET}
+      signed-url-validity: ${AWS_SIGNED_URL_VALIDITY:3600}
+      base-upload-folder: ${AWS_BASE_UPLOAD_FOLDER:/uploads}
+    access-key-id: ${AWS_ACCESS_KEY_ID}
+    secret-access-key: ${AWS_SECRET_ACCESS_KEY}
+  security:
+    jwt:
+      public-key: ${JWT_PUBLIC_KEY}
+      issuer: ${JWT_ISSUER:s3handler-enterprise}
+  cors:
+    allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:3000}
+    allowed-methods: ${CORS_ALLOWED_METHODS:GET,POST,PUT,DELETE,OPTIONS}
+    allowed-headers: ${CORS_ALLOWED_HEADERS:*}
+    allow-credentials: ${CORS_ALLOW_CREDENTIALS:true}
+  cache:
+    ttl: ${CACHE_TTL:300}
+  rate-limit:
+    requests-per-minute: ${RATE_LIMIT_RPM:100}

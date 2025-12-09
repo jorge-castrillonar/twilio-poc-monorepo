@@ -1,0 +1,14 @@
+{
+  "DuplicatedReference": {
+    "reference": {
+      "id": "MapParser",
+      "type": "data",
+      "value": "CUSTOMER_REFERENCE"
+    },
+    "transactionId": {
+      "id": "MapParser",
+      "type": "data",
+      "value": "DEBT_TRANSACTION_ID"
+    }
+  }
+}

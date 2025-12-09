@@ -1,0 +1,121 @@
+server:
+  port: 8085
+
+spring:
+  application:
+    name: auth-service
+  
+  # Database Configuration
+  datasource:
+    url: jdbc:postgresql://localhost:5436/authdb
+    username: authservice
+    password: authpass
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 5
+      connection-timeout: 30000
+  
+  # JPA Configuration
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        jdbc:
+          time_zone: UTC
+  
+  # Flyway Configuration
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+    locations: classpath:db/migration
+  
+  # ActiveMQ Configuration
+  activemq:
+    broker-url: tcp://localhost:61616
+    user: admin
+    password: admin
+    packages:
+      trust-all: true
+  
+  jms:
+    listener:
+      receive-timeout: 30000
+    template:
+      delivery-mode: persistent
+      priority: 100
+      time-to-live: 36000
+  
+  # Redis Configuration (for rate limiting)
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      timeout: 2000ms
+      lettuce:
+        pool:
+          max-active: 8
+          max-idle: 8
+          min-idle: 0
+
+# JWT Configuration
+jwt:
+  # Base64 encoded RSA public key (shared with other services)
+  public-key: |
+    LS0tLS1CRUdJTiBQVUJMSUMgS0VZLS0tLS0KTUlJQklqQU5CZ2txaGtpRzl3MEJBUUVGQUFPQ0FROEFNSUlCQ2dLQ0FRRUF0cllhVHg3RkNjNmRsOEhEdUJyZAp4VGhwVGQyQjVYTzM2dWR4T2k0bVBFOElsQ3lDWlFYaTc2Y0hNTHpMNFRldE51YmVyVDB6M2pZdlpPdFo2dGJICkN3K29HQTEwODhISnI4NWduN1VkR0lJT2pETHp3V1NRVlozR1dCUDR5bStOZVRQZjBUa3ZFZWI0YTdFTVRyWmYKUGh4YnlWN3J5T0JRY0sxcDlJWXZhYzZaaG9JUjRKbTBBYWYzdEtOQjZ2NHNoZW8zM2JLbjV5Qm9ZRWpWNHlzUQpwbWJsOFZxdTY4UnI2UFErcHQ0NDNLUjJPNHFRaHhjdXJ5bGJoUm1YQnpqeFB6d2RBMkNHTGJzbWFlWkN2aEhiCjRrcllnVXBnN25mRlJVeEZ2M1dGT05qOTAxbld1bHNZWWFHZ1JFU0hBZHl1SHZrZnZVWU8yb0w5RXVTOVJEUnQKM3dJREFRQUIKLS0tLS1FTkQgUFVCTElDIEtFWS0tLS0t
+  
+  # Private key path (for signing tokens)
+  private-key-path: classpath:keys/private_key.pem
+  
+  # Token expiration times
+  access-token-expiration: 900000      # 15 minutes in milliseconds
+  refresh-token-expiration: 604800000  # 7 days in milliseconds
+  
+  # Issuer
+  issuer: auth-service
+
+# JMS Queue Configuration
+jms:
+  queues:
+    auth:
+      operations:
+        request: auth.operations.request
+        response: auth.operations.response
+    events:
+      login-success: auth.events.login.success
+      login-failed: auth.events.login.failed
+      token-refreshed: auth.events.token.refreshed
+      mfa-enabled: auth.events.mfa.enabled
+
+# Rate Limiting Configuration
+rate-limit:
+  login:
+    max-attempts: 5
+    duration-seconds: 300  # 5 minutes
+  refresh:
+    max-attempts: 10
+    duration-seconds: 60   # 1 minute
+
+# User Service Configuration
+user-service:
+  base-url: http://localhost:8084
+  endpoints:
+    validate-credentials: /api/credentials/validate
+    get-user: /api/users/{userId}
+
+# MFA Configuration
+mfa:
+  issuer: CCAI-Collections
+  time-step-seconds: 30
+  window: 1  # Allow 1 time step before/after for clock skew
+
+# Logging
+logging:
+  level:
+    com.allcode.auth: DEBUG
+    org.springframework.security: DEBUG
+    org.springframework.web: INFO

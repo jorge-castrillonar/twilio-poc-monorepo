@@ -1,0 +1,8 @@
+{
+  "Timestamp": {
+    "id": "MapParser",
+    "type": "expression",
+    "value": "function process(data) { if(data['TIMESTAMP']) { return data['TIMESTAMP']; } return new Date().getTime().toString(); }",
+    "dataType": "number"
+  }
+}

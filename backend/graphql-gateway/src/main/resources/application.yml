@@ -1,0 +1,43 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    name: graphql-gateway
+  
+  graphql:
+    graphiql:
+      enabled: true
+      path: /graphiql
+    websocket:
+      path: /graphql
+    
+  activemq:
+    broker-url: ${ACTIVEMQ_BROKER_URL:tcp://localhost:61616}
+    user: admin
+    password: admin
+    
+  security:
+    user:
+      name: admin
+      password: admin
+
+services:
+  core:
+    url: ${SERVICES_CORE_URL:http://localhost:8081}
+  s3:
+    url: ${SERVICES_S3_URL:http://localhost:8080}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus
+  endpoint:
+    health:
+      show-details: always
+
+logging:
+  level:
+    com.allcode.graphql: DEBUG
+    org.springframework.graphql: DEBUG

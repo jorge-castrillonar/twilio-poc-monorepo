@@ -1,0 +1,46 @@
+{
+  "CreditorBrand": {
+    "logoUrl": {
+      "type": "String"
+    },
+    "type": {
+      "required": true,
+      "type": "Enum",
+      "description": "DOING_BUSINESS_AS or ORIGINAL",
+      "default": "DOING_BUSINESS_AS"
+    },
+    "name": {
+      "required": true,
+      "type": "String"
+    },
+    "address": {
+      "type": "PostalAddress"
+    },
+    "meta": {
+      "type": "Meta"
+    },
+    "description": {
+      "type": "String"
+    },
+    "websiteUrl": {
+      "type": "String"
+    },
+    "brandDetails": {
+      "type": "BrandDetails",
+      "properties": {
+        "originalCreditor": {
+          "type": "String",
+          "description": "Original Creditor for the debt"
+        },
+        "merchant": {
+          "type": "String",
+          "description": "Original merchant associated with the debt"
+        },
+        "productType": {
+          "type": "Enum",
+          "description": "UNKNOWN or CARD"
+        }
+      }
+    }
+  }
+}

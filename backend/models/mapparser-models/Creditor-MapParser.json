@@ -1,0 +1,30 @@
+{
+  "Creditor": {
+    "companyName": {
+      "id": "MapParser",
+      "type": "data",
+      "value": "COMPANY_NAME"
+    },
+    "industry": {
+      "id": "MapParser",
+      "type": "data",
+      "value": "INDUSTRY"
+    },
+    "environment": {
+      "id": "MapParser",
+      "type": "expression",
+      "value": "function process(data) { if(data['ENVIRONMENT']) { var env = data['ENVIRONMENT'].toUpperCase(); if(['LIVE', 'TEST', 'INTERNAL_TEST'].includes(env)) return env; } return 'LIVE'; }"
+    },
+    "activationStatus": {
+      "id": "MapParser",
+      "type": "expression",
+      "value": "function process(data) { if(data['ACTIVATION_STATUS']) { var status = data['ACTIVATION_STATUS'].toUpperCase(); if(['ACTIVE', 'NOT_APPLIED', 'APPLICATION_UNDER_REVIEW', 'REJECTED', 'OFFBOARDED'].includes(status)) return status; } return 'ACTIVE'; }"
+    },
+    "commissionPercentBasisPoint": {
+      "id": "MapParser",
+      "type": "data",
+      "value": "COMMISSION_PERCENT_BASIS_POINT",
+      "dataType": "number"
+    }
+  }
+}

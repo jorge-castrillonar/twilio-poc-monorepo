@@ -1,0 +1,56 @@
+{
+  "Payment": {
+    "meta": {
+      "id": {
+        "id": "MapParser",
+        "type": "data",
+        "value": "PAYMENT_ID"
+      },
+      "timeCreated": {
+        "id": "MapParser",
+        "type": "expression",
+        "value": "function process(data) { if(data['PAYMENT_TIME_CREATED']) { return data['PAYMENT_TIME_CREATED']; } return new Date().getTime().toString(); }",
+        "dataType": "number"
+      }
+    },
+    "amount": {
+      "amount": {
+        "id": "MapParser",
+        "type": "data",
+        "value": "PAYMENT_AMOUNT",
+        "dataType": "amount"
+      },
+      "currency": {
+        "id": "MapParser",
+        "type": "static",
+        "value": "USD"
+      }
+    },
+    "payee": {
+      "id": "MapParser",
+      "type": "expression",
+      "value": "function process(data) { if(data['PAYEE']) { var payee = data['PAYEE'].toUpperCase(); if(['CREDITOR', 'TRUEACCORD'].includes(payee)) return payee; } return 'CREDITOR'; }"
+    },
+    "transactionReference": {
+      "id": "MapParser",
+      "type": "data",
+      "value": "PAYMENT_TRANSACTION_REFERENCE"
+    },
+    "note": {
+      "id": "MapParser",
+      "type": "data",
+      "value": "PAYMENT_NOTE"
+    },
+    "transactionType": {
+      "id": "MapParser",
+      "type": "expression",
+      "value": "function process(data) { if(data['TRANSACTION_TYPE']) { var type = data['TRANSACTION_TYPE'].toUpperCase(); if(['PAYMENT', 'RETURNED_PAYMENT', 'REFUND'].includes(type)) return type; } return 'PAYMENT'; }"
+    },
+    "paymentTimestamp": {
+      "id": "MapParser",
+      "type": "expression",
+      "value": "function process(data) { if(data['PAYMENT_DATE'] && data['PAYMENT_DATE'].length === 8) { var date = data['PAYMENT_DATE']; return new Date(date.substring(0, 4), parseInt(date.substring(4, 6)) - 1, date.substring(6, 8)).getTime().toString(); } return ''; }",
+      "dataType": "number"
+    }
+  }
+}

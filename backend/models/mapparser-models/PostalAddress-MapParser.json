@@ -1,0 +1,51 @@
+{
+  "PostalAddress": {
+    "name": {
+      "firstName": {
+        "id": "MapParser",
+        "type": "data",
+        "value": "ADDRESS_FIRST_NAME"
+      },
+      "middleName": {
+        "id": "MapParser",
+        "type": "data",
+        "value": "ADDRESS_MIDDLE_NAME"
+      },
+      "lastName": {
+        "id": "MapParser",
+        "type": "data",
+        "value": "ADDRESS_LAST_NAME"
+      }
+    },
+    "streetLine1": {
+      "id": "MapParser",
+      "type": "data",
+      "value": "STREET_LINE_1"
+    },
+    "streetLine2": {
+      "id": "MapParser",
+      "type": "data",
+      "value": "STREET_LINE_2"
+    },
+    "city": {
+      "id": "MapParser",
+      "type": "data",
+      "value": "CITY"
+    },
+    "state": {
+      "id": "MapParser",
+      "type": "data",
+      "value": "STATE"
+    },
+    "zipcode": {
+      "id": "MapParser",
+      "type": "data",
+      "value": "ZIPCODE"
+    },
+    "countryCode": {
+      "id": "MapParser",
+      "type": "static",
+      "value": "US"
+    }
+  }
+}

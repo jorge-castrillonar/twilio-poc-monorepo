@@ -1,0 +1,21 @@
+{
+  "Creditor": {
+    "companyName": {
+      "type": "String"
+    },
+    "industry": {
+      "type": "String"
+    },
+    "environment": {
+      "type": "Enum",
+      "description": "LIVE, TEST, or INTERNAL_TEST"
+    },
+    "activationStatus": {
+      "type": "Enum",
+      "description": "ACTIVE, NOT_APPLIED, APPLICATION_UNDER_REVIEW, REJECTED, or OFFBOARDED"
+    },
+    "commissionPercentBasisPoint": {
+      "type": "Integer"
+    }
+  }
+}

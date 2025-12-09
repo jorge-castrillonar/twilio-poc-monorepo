@@ -1,0 +1,22 @@
+{
+  "Date": {
+    "year": {
+      "id": "MapParser",
+      "type": "expression",
+      "value": "function process(data) { if(data['DATE'] && data['DATE'].length === 8){ return parseInt(data['DATE'].substring(0, 4)).toString(); } return ''; }",
+      "dataType": "number"
+    },
+    "month": {
+      "id": "MapParser",
+      "type": "expression",
+      "value": "function process(data) { if(data['DATE'] && data['DATE'].length === 8){ return parseInt(data['DATE'].substring(4, 6)).toString(); } return ''; }",
+      "dataType": "number"
+    },
+    "day": {
+      "id": "MapParser",
+      "type": "expression",
+      "value": "function process(data) { if(data['DATE'] && data['DATE'].length === 8){ return parseInt(data['DATE'].substring(6, 8)).toString(); } return ''; }",
+      "dataType": "number"
+    }
+  }
+}

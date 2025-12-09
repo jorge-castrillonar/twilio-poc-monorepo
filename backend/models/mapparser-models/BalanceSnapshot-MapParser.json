@@ -1,0 +1,61 @@
+{
+  "BalanceSnapshot": {
+    "principal": {
+      "amount": {
+        "id": "MapParser",
+        "type": "data",
+        "value": "BALANCE_PRINCIPAL",
+        "dataType": "amount"
+      },
+      "currency": {
+        "id": "MapParser",
+        "type": "static",
+        "value": "USD"
+      }
+    },
+    "interest": {
+      "amount": {
+        "id": "MapParser",
+        "type": "data",
+        "value": "BALANCE_INTEREST",
+        "dataType": "amount"
+      },
+      "currency": {
+        "id": "MapParser",
+        "type": "static",
+        "value": "USD"
+      }
+    },
+    "fees": {
+      "amount": {
+        "id": "MapParser",
+        "type": "data",
+        "value": "BALANCE_FEES",
+        "dataType": "amount"
+      },
+      "currency": {
+        "id": "MapParser",
+        "type": "static",
+        "value": "USD"
+      }
+    },
+    "costs": {
+      "amount": {
+        "id": "MapParser",
+        "type": "data",
+        "value": "BALANCE_COSTS",
+        "dataType": "amount"
+      },
+      "currency": {
+        "id": "MapParser",
+        "type": "static",
+        "value": "USD"
+      }
+    },
+    "notes": {
+      "id": "MapParser",
+      "type": "data",
+      "value": "BALANCE_NOTES"
+    }
+  }
+}

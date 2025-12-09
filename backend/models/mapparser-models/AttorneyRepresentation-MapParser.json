@@ -1,0 +1,71 @@
+{
+  "AttorneyRepresentation": {
+    "contactInfo": {
+      "name": {
+        "id": "MapParser",
+        "type": "data",
+        "value": "ATTORNEY_NAME"
+      },
+      "phoneNumber": {
+        "phoneNumber": {
+          "id": "MapParser",
+          "type": "data",
+          "value": "ATTORNEY_PHONE"
+        }
+      },
+      "address": {
+        "streetLine1": {
+          "id": "MapParser",
+          "type": "data",
+          "value": "ATTORNEY_ADDRESS_1"
+        },
+        "streetLine2": {
+          "id": "MapParser",
+          "type": "data",
+          "value": "ATTORNEY_ADDRESS_2"
+        },
+        "city": {
+          "id": "MapParser",
+          "type": "data",
+          "value": "ATTORNEY_CITY"
+        },
+        "state": {
+          "id": "MapParser",
+          "type": "data",
+          "value": "ATTORNEY_STATE"
+        },
+        "zipcode": {
+          "id": "MapParser",
+          "type": "data",
+          "value": "ATTORNEY_ZIPCODE"
+        },
+        "countryCode": {
+          "id": "MapParser",
+          "type": "static",
+          "value": "US"
+        }
+      }
+    },
+    "email": {
+      "id": "MapParser",
+      "type": "data",
+      "value": "ATTORNEY_EMAIL"
+    },
+    "requestedBy": {
+      "id": "MapParser",
+      "type": "expression",
+      "value": "function process(data) { if(data['REQUESTED_BY']) { var req = data['REQUESTED_BY'].toUpperCase(); if(['REQUEST_BY_UNKNOWN', 'CUSTOMER', 'POWER_OF_ATTORNEY', 'CREDITOR', 'DEBT_CONSOLIDATOR', 'ATTORNEY', 'TRUEACCORD', 'ATTORNEY_DEBT_CONSOLIDATOR'].includes(req)) return req; } return 'REQUEST_BY_UNKNOWN'; }"
+    },
+    "communicationType": {
+      "id": "MapParser",
+      "type": "expression",
+      "value": "function process(data) { if(data['COMMUNICATION_TYPE']) { var type = data['COMMUNICATION_TYPE'].toUpperCase(); if(['COMMUNICATION_TYPE_UNKNOWN', 'WRITTEN', 'VERBAL'].includes(type)) return type; } return 'COMMUNICATION_TYPE_UNKNOWN'; }"
+    },
+    "receivedPowerOfAttorneyDocumentation": {
+      "id": "MapParser",
+      "type": "expression",
+      "value": "function process(data) { if (data['RECEIVED_POA_DOCS']) { return data['RECEIVED_POA_DOCS'] === 'Y' || data['RECEIVED_POA_DOCS'] === 'true'; } return false; }",
+      "dataType": "boolean"
+    }
+  }
+}

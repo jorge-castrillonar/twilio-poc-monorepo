@@ -1,0 +1,44 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: s3-service
+  activemq:
+    broker-url: ${ACTIVEMQ_BROKER_URL:tcp://activemq:61616}
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://s3-db:5432/s3_service}
+    username: ${SPRING_DATASOURCE_USERNAME:s3_user}
+    password: ${SPRING_DATASOURCE_PASSWORD:s3_pass}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+activemq:
+  broker:
+    url: ${ACTIVEMQ_BROKER_URL:tcp://activemq:61616}
+
+app:
+  aws:
+    s3:
+      region: ${AWS_S3_REGION:us-east-1}
+      bucket: ${AWS_S3_BUCKET:ccai-collections-file-repository-dev}
+      public-bucket: ${AWS_S3_PUBLIC_BUCKET:ccai-collections-file-repository-dev}
+      signed-url-validity: ${AWS_S3_SIGNED_URL_VALIDITY:3600}
+      base-upload-folder: ${AWS_S3_BASE_UPLOAD_FOLDER:uploads}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+
+logging:
+  level:
+    com.allcode.s3handler: INFO

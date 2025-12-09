@@ -1,0 +1,30 @@
+{
+  "DebtConsolidatorRepresentation": {
+    "debtConsolidatorType": {
+      "type": "Enum",
+      "description": "Type of debt consolidator from predefined list"
+    },
+    "contactInfo": {
+      "type": "ContactInfo"
+    },
+    "email": {
+      "type": "String",
+      "description": "Email address for contacting the debt consolidator"
+    },
+    "requestedBy": {
+      "type": "Enum"
+    },
+    "communicationType": {
+      "type": "Enum"
+    },
+    "receivedPowerOfAttorneyDocumentation": {
+      "type": "Boolean"
+    },
+    "offerPercentOfBalance": {
+      "type": "Integer"
+    },
+    "offerDurationInMonths": {
+      "type": "Integer"
+    }
+  }
+}

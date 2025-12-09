@@ -1,0 +1,35 @@
+{
+  "Payment": {
+    "meta": {
+      "type": "Meta",
+      "description": "Only includes id and timeCreated"
+    },
+    "amount": {
+      "required": true,
+      "type": "MonetaryAmount",
+      "description": "The amount of the payment. Must be positive"
+    },
+    "payee": {
+      "required": true,
+      "type": "Enum",
+      "description": "Identifies who received the payment: CREDITOR or TRUEACCORD"
+    },
+    "transactionReference": {
+      "type": "String",
+      "description": "Reference to associate this payment to a transaction in your internal system"
+    },
+    "note": {
+      "type": "String",
+      "description": "Note about the payment"
+    },
+    "transactionType": {
+      "required": true,
+      "type": "Enum",
+      "description": "PAYMENT, RETURNED_PAYMENT, or REFUND"
+    },
+    "paymentTimestamp": {
+      "type": "Timestamp",
+      "description": "Optional for informational purposes"
+    }
+  }
+}

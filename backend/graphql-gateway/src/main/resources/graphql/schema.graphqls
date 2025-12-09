@@ -1,0 +1,219 @@
+scalar DateTime
+
+# ============================================
+# User Management Types
+# ============================================
+
+type User {
+    id: ID!
+    email: String!
+    firstName: String!
+    lastName: String!
+    fullName: String!
+    roles: [UserRole!]!
+    status: UserStatus!
+    mfaEnabled: Boolean!
+    createdAt: DateTime!
+    updatedAt: DateTime!
+}
+
+enum UserRole {
+    ADMIN
+    USER
+    MANAGER
+    AGENT
+}
+
+enum UserStatus {
+    ACTIVE
+    INACTIVE
+    SUSPENDED
+    DELETED
+}
+
+input CreateUserInput {
+    email: String!
+    password: String!
+    firstName: String!
+    lastName: String!
+    roles: [UserRole!] = [USER]
+}
+
+input UpdateUserInput {
+    firstName: String
+    lastName: String
+    status: UserStatus
+}
+
+# ============================================
+# Authentication Types
+# ============================================
+
+type AuthResponse {
+    accessToken: String!
+    refreshToken: String!
+    tokenType: String!
+    expiresIn: Int!
+    user: User!
+    mfaRequired: Boolean!
+}
+
+type MfaSetupResponse {
+    secret: String!
+    qrCodeUrl: String!
+    backupCodes: [String!]!
+}
+
+type MfaStatusResponse {
+    enabled: Boolean!
+    setupComplete: Boolean!
+}
+
+type TokenVerificationResult {
+    valid: Boolean!
+    userId: ID
+    email: String
+    roles: [UserRole!]
+    expiresAt: DateTime
+    message: String
+}
+
+input LoginInput {
+    email: String!
+    password: String!
+    mfaCode: String
+}
+
+input RefreshTokenInput {
+    refreshToken: String!
+}
+
+input LogoutInput {
+    refreshToken: String!
+}
+
+input EnableMfaInput {
+    totpCode: String!
+}
+
+# ============================================
+# File Management Types
+# ============================================
+
+type File {
+    id: ID!
+    userId: String!
+    originalName: String!
+    contentType: String!
+    status: FileStatus!
+    uploadDate: DateTime!
+    isPublic: Boolean!
+    storageInfo: StorageInfo
+    downloadUrl(expiresIn: Int = 3600): String
+    size: Int
+}
+
+type StorageInfo {
+    s3Key: String!
+    bucket: String!
+    size: Int!
+    etag: String
+    storageClass: String!
+    storedDate: DateTime!
+    region: String
+}
+
+enum FileStatus {
+    UPLOADING
+    ACTIVE
+    DELETED
+    FAILED
+}
+
+type UploadUrlResponse {
+    fileId: ID!
+    uploadUrl: String!
+    expiresIn: Int!
+    createdAt: DateTime!
+}
+
+type DeleteFileResponse {
+    success: Boolean!
+    fileId: ID!
+    message: String
+}
+
+type FileConnection {
+    files: [File!]!
+    totalCount: Int!
+    hasNextPage: Boolean!
+    cursor: String
+}
+
+type HealthStatus {
+    service: String!
+    status: String!
+    details: String
+}
+
+input UploadRequest {
+    originalName: String!
+    contentType: String!
+    isPublic: Boolean = false
+}
+
+input FileFilter {
+    userId: String
+    status: FileStatus
+    contentType: String
+    isPublic: Boolean
+}
+
+input PaginationInput {
+    limit: Int = 20
+    offset: Int = 0
+}
+
+type Query {
+    # User queries
+    user(id: ID!): User
+    userByEmail(email: String!): User
+    users(status: UserStatus, role: UserRole): [User!]!
+    
+    # File queries
+    file(id: ID!): File
+    files(filter: FileFilter, pagination: PaginationInput): FileConnection!
+    userFiles(userId: String!, status: FileStatus, pagination: PaginationInput): FileConnection!
+    
+    # Health check
+    health: [HealthStatus!]!
+}
+
+type Mutation {
+    # Authentication mutations
+    login(input: LoginInput!): AuthResponse!
+    refreshToken(input: RefreshTokenInput!): AuthResponse!
+    logout(input: LogoutInput!): Boolean!
+    verifyToken(token: String!): TokenVerificationResult!
+    setupMfa: MfaSetupResponse!
+    enableMfa(input: EnableMfaInput!): Boolean!
+    disableMfa: Boolean!
+    
+    # User mutations
+    createUser(input: CreateUserInput!): User!
+    updateUser(id: ID!, input: UpdateUserInput!): User!
+    deleteUser(id: ID!): Boolean!
+    assignRole(userId: ID!, role: UserRole!): User!
+    revokeRole(userId: ID!, role: UserRole!): User!
+    
+    # File mutations
+    generateUploadUrl(input: UploadRequest!): UploadUrlResponse!
+    completeUpload(fileId: ID!): File!
+    generateDownloadUrl(fileId: ID!, expiresIn: Int = 3600): String
+    deleteFile(fileId: ID!): DeleteFileResponse!
+    updateFileVisibility(fileId: ID!, isPublic: Boolean!): File!
+}
+
+type Subscription {
+    fileStatusChanged(userId: String!): File!
+}

@@ -1,0 +1,33 @@
+{
+  "AttorneyRepresentation": {
+    "contactInfo": {
+      "type": "ContactInfo",
+      "properties": {
+        "name": {
+          "type": "String"
+        },
+        "phoneNumber": {
+          "type": "PhoneNumber"
+        },
+        "address": {
+          "type": "ContactAddress"
+        }
+      }
+    },
+    "email": {
+      "type": "String",
+      "description": "Email address for contacting the attorney"
+    },
+    "requestedBy": {
+      "type": "Enum",
+      "description": "REQUEST_BY_UNKNOWN, CUSTOMER, POWER_OF_ATTORNEY, CREDITOR, DEBT_CONSOLIDATOR, ATTORNEY, TRUEACCORD, ATTORNEY_DEBT_CONSOLIDATOR"
+    },
+    "communicationType": {
+      "type": "Enum",
+      "description": "COMMUNICATION_TYPE_UNKNOWN, WRITTEN, VERBAL"
+    },
+    "receivedPowerOfAttorneyDocumentation": {
+      "type": "Boolean"
+    }
+  }
+}

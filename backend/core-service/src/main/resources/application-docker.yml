@@ -1,0 +1,42 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: core-service
+  activemq:
+    broker-url: ${ACTIVEMQ_BROKER_URL:tcp://activemq:61616}
+  jms:
+    template:
+      default-destination: file.upload.request
+      delivery-mode: persistent
+      priority: 100
+      time-to-live: 36000
+      receive-timeout: 30000
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://core-db:5432/core_service}
+    username: ${SPRING_DATASOURCE_USERNAME:core_user}
+    password: ${SPRING_DATASOURCE_PASSWORD:core_pass}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+activemq:
+  broker:
+    url: ${ACTIVEMQ_BROKER_URL:tcp://activemq:61616}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+
+logging:
+  level:
+    com.allcode.core: INFO

@@ -1,0 +1,216 @@
+{
+  "debts": [
+    {
+      "biller": {
+        "id": "MapParser",
+        "type": "data",
+        "value": "BILLER_NAME"
+      },
+      "product": {
+        "id": "MapParser",
+        "type": "data",
+        "value": "PRODUCT_DESCRIPTION"
+      },
+      "initialPrincipal": {
+        "amount": {
+          "id": "MapParser",
+          "type": "data",
+          "value": "INITIAL_PRINCIPAL",
+          "dataType": "amount"
+        },
+        "currency": {
+          "id": "MapParser",
+          "type": "static",
+          "value": "USD"
+        }
+      },
+      "initialInterest": {
+        "amount": {
+          "id": "MapParser",
+          "type": "data",
+          "value": "INITIAL_INTEREST",
+          "dataType": "amount"
+        },
+        "currency": {
+          "id": "MapParser",
+          "type": "static",
+          "value": "USD"
+        }
+      },
+      "initialFees": {
+        "amount": {
+          "id": "MapParser",
+          "type": "data",
+          "value": "INITIAL_FEES",
+          "dataType": "amount"
+        },
+        "currency": {
+          "id": "MapParser",
+          "type": "static",
+          "value": "USD"
+        }
+      },
+      "transactionId": {
+        "id": "MapParser",
+        "type": "data",
+        "value": "TRANSACTION_ID"
+      },
+      "transactionIp": {
+        "id": "MapParser",
+        "type": "data",
+        "value": "TRANSACTION_IP"
+      },
+      "transactionTimestamp": {
+        "id": "MapParser",
+        "type": "expression",
+        "value": "function process(data) { if(data['TRANSACTION_DATE'] && data['TRANSACTION_DATE'].length === 8) { var date = data['TRANSACTION_DATE']; return new Date(date.substring(0, 4), parseInt(date.substring(4, 6)) - 1, date.substring(6, 8)).getTime().toString(); } return ''; }",
+        "dataType": "number"
+      },
+      "defaultTimestamp": {
+        "id": "MapParser",
+        "type": "expression",
+        "value": "function process(data) { if(data['DEFAULT_DATE'] && data['DEFAULT_DATE'].length === 8) { var date = data['DEFAULT_DATE']; return new Date(date.substring(0, 4), parseInt(date.substring(4, 6)) - 1, date.substring(6, 8)).getTime().toString(); } return ''; }",
+        "dataType": "number"
+      },
+      "accountOpenTimestamp": {
+        "id": "MapParser",
+        "type": "expression",
+        "value": "function process(data) { if(data['ACCOUNT_OPEN_DATE'] && data['ACCOUNT_OPEN_DATE'].length === 8) { var date = data['ACCOUNT_OPEN_DATE']; return new Date(date.substring(0, 4), parseInt(date.substring(4, 6)) - 1, date.substring(6, 8)).getTime().toString(); } return ''; }",
+        "dataType": "number"
+      },
+      "clientFields": [
+        {
+          "key": {
+            "id": "MapParser",
+            "type": "static",
+            "value": "PORTFOLIO"
+          },
+          "value": {
+            "id": "MapParser",
+            "type": "data",
+            "value": "PORTFOLIO"
+          }
+        },
+        {
+          "key": {
+            "id": "MapParser",
+            "type": "static",
+            "value": "ACCOUNT_ID"
+          },
+          "value": {
+            "id": "MapParser",
+            "type": "data",
+            "value": "ACCOUNT_ID"
+          }
+        }
+      ],
+      "sendCbrNegativeNotice": {
+        "id": "MapParser",
+        "type": "expression",
+        "value": "function process(data) { if (data['CBR_NEGATIVE_NOTICE_FLAG']) { return data['CBR_NEGATIVE_NOTICE_FLAG'] === 'Y' || data['CBR_NEGATIVE_NOTICE_FLAG'] === 'true'; } return false; }",
+        "dataType": "boolean"
+      },
+      "hasSentCbrNegativeNotice": {
+        "id": "MapParser",
+        "type": "expression",
+        "value": "function process(data) { if (data['HAS_SENT_CBR_FLAG']) { return data['HAS_SENT_CBR_FLAG'] === 'Y' || data['HAS_SENT_CBR_FLAG'] === 'true'; } return false; }",
+        "dataType": "boolean"
+      },
+      "postChargeOffInformation": {
+        "chargeOffTimestamp": {
+          "id": "MapParser",
+          "type": "expression",
+          "value": "function process(data) { if(data['CHARGE_OFF_DATE'] && data['CHARGE_OFF_DATE'].length === 8) { var date = data['CHARGE_OFF_DATE']; return new Date(date.substring(0, 4), parseInt(date.substring(4, 6)) - 1, date.substring(6, 8)).getTime().toString(); } return ''; }",
+          "dataType": "number"
+        },
+        "balanceAtChargeOff": {
+          "amount": {
+            "id": "MapParser",
+            "type": "data",
+            "value": "BALANCE_AT_CHARGE_OFF",
+            "dataType": "amount"
+          },
+          "currency": {
+            "id": "MapParser",
+            "type": "static",
+            "value": "USD"
+          }
+        },
+        "feesAccruedSinceChargeOff": {
+          "amount": {
+            "id": "MapParser",
+            "type": "data",
+            "value": "FEES_ACCRUED_SINCE_CHARGE_OFF",
+            "dataType": "amount"
+          },
+          "currency": {
+            "id": "MapParser",
+            "type": "static",
+            "value": "USD"
+          }
+        },
+        "interestAccruedSinceChargeOff": {
+          "amount": {
+            "id": "MapParser",
+            "type": "data",
+            "value": "INTEREST_ACCRUED_SINCE_CHARGE_OFF",
+            "dataType": "amount"
+          },
+          "currency": {
+            "id": "MapParser",
+            "type": "static",
+            "value": "USD"
+          }
+        },
+        "totalPaidSinceChargeOff": {
+          "amount": {
+            "id": "MapParser",
+            "type": "data",
+            "value": "TOTAL_PAID_SINCE_CHARGE_OFF",
+            "dataType": "amount"
+          },
+          "currency": {
+            "id": "MapParser",
+            "type": "static",
+            "value": "USD"
+          }
+        }
+      },
+      "itemizationTimestamp": {
+        "id": "MapParser",
+        "type": "expression",
+        "value": "function process(data) { if(data['ITEMIZATION_DATE'] && data['ITEMIZATION_DATE'].length === 8) { var date = data['ITEMIZATION_DATE']; return new Date(date.substring(0, 4), parseInt(date.substring(4, 6)) - 1, date.substring(6, 8)).getTime().toString(); } return ''; }",
+        "dataType": "number"
+      },
+      "initialPaymentsAndCredits": {
+        "amount": {
+          "id": "MapParser",
+          "type": "data",
+          "value": "INITIAL_PAYMENTS_AND_CREDITS",
+          "dataType": "amount"
+        },
+        "currency": {
+          "id": "MapParser",
+          "type": "static",
+          "value": "USD"
+        }
+      },
+      "isInitialPrincipalBeforePaymentsAndCredits": {
+        "id": "MapParser",
+        "type": "expression",
+        "value": "function process(data) { if (data['IS_INITIAL_PRINCIPAL_BEFORE_PAYMENTS']) { return data['IS_INITIAL_PRINCIPAL_BEFORE_PAYMENTS'] === 'Y' || data['IS_INITIAL_PRINCIPAL_BEFORE_PAYMENTS'] === 'true'; } return false; }",
+        "dataType": "boolean"
+      },
+      "creditorName": {
+        "id": "MapParser",
+        "type": "data",
+        "value": "CREDITOR_NAME"
+      },
+      "originalCreditorName": {
+        "id": "MapParser",
+        "type": "data",
+        "value": "ORIGINAL_CREDITOR_NAME"
+      }
+    }
+  ]
+}

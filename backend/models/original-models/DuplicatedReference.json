@@ -1,0 +1,12 @@
+{
+  "DuplicatedReference": {
+    "reference": {
+      "type": "String",
+      "description": "Refers to the reference field in the Customer data type"
+    },
+    "transactionId": {
+      "type": "String",
+      "description": "Refers to the transactionId field in the Debt data type"
+    }
+  }
+}

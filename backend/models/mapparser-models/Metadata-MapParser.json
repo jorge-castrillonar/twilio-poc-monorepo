@@ -1,0 +1,33 @@
+{
+  "Metadata": {
+    "id": {
+      "id": "MapParser",
+      "type": "data",
+      "value": "META_ID"
+    },
+    "isActive": {
+      "id": "MapParser",
+      "type": "expression",
+      "value": "function process(data) { if (data['IS_ACTIVE']) { return data['IS_ACTIVE'] === 'Y' || data['IS_ACTIVE'] === 'true'; } return true; }",
+      "dataType": "boolean"
+    },
+    "isPrimary": {
+      "id": "MapParser",
+      "type": "expression",
+      "value": "function process(data) { if (data['IS_PRIMARY']) { return data['IS_PRIMARY'] === 'Y' || data['IS_PRIMARY'] === 'true'; } return false; }",
+      "dataType": "boolean"
+    },
+    "timeCreated": {
+      "id": "MapParser",
+      "type": "expression",
+      "value": "function process(data) { if(data['TIME_CREATED']) { return data['TIME_CREATED']; } return new Date().getTime().toString(); }",
+      "dataType": "number"
+    },
+    "lastModified": {
+      "id": "MapParser",
+      "type": "expression",
+      "value": "function process(data) { if(data['LAST_MODIFIED']) { return data['LAST_MODIFIED']; } return new Date().getTime().toString(); }",
+      "dataType": "number"
+    }
+  }
+}

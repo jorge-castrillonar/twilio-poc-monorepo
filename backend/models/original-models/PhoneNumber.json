@@ -1,0 +1,18 @@
+{
+  "PhoneNumber": {
+    "phoneNumber": {
+      "type": "String",
+      "description": "The phone number to be used for contacting"
+    },
+    "dataSource": {
+      "type": "DataSource"
+    },
+    "consent": {
+      "type": "Consent"
+    },
+    "types": {
+      "type": "Array",
+      "description": "Array with one or more of: WORK, HOME, CELL, FAX, BUSINESS"
+    }
+  }
+}

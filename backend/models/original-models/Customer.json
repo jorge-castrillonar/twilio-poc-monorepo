@@ -1,0 +1,139 @@
+{
+  "Customer": {
+    "name": {
+      "firstName": {
+        "required": true,
+        "type": "String",
+        "description": "Full name of customer"
+      },
+      "middleName": {
+        "required": false,
+        "type": "String",
+        "description": "Customer middle name"
+      },
+      "lastName": {
+        "required": true,
+        "type": "String",
+        "description": "Customer last name"
+      }
+    },
+    "dateOfBirth": {
+      "year": {
+        "required": true,
+        "type": "Integer",
+        "description": "4-digit year, ex: 2021"
+      },
+      "month": {
+        "required": true,
+        "type": "Integer",
+        "description": "Takes values 1-12"
+      },
+      "day": {
+        "required": true,
+        "type": "Integer",
+        "description": "Takes values 1-31"
+      }
+    },
+    "businesses": {
+      "type": "Array",
+      "description": "Any business names associated with the Customer",
+      "items": {
+        "name": {
+          "type": "String",
+          "description": "Name of business"
+        },
+        "url": {
+          "type": "String",
+          "description": "Website associated with business. Start with http(s)://...."
+        }
+      }
+    },
+    "addresses": {
+      "required": true,
+      "type": "Array",
+      "description": "Must provide at least one Address",
+      "items": {
+        "streetLine1": {
+          "type": "String",
+          "description": "Street address"
+        },
+        "streetLine2": {
+          "type": "String",
+          "description": "Unit number or PO BOX"
+        },
+        "city": {
+          "required": true,
+          "type": "String",
+          "description": "City of address"
+        },
+        "state": {
+          "required": true,
+          "type": "String",
+          "description": "Two-digit state code. Ex: NY, CA"
+        },
+        "zipcode": {
+          "required": true,
+          "type": "String",
+          "description": "Postal code for address"
+        },
+        "countryCode": {
+          "required": true,
+          "type": "String",
+          "description": "Code for country. Ex: US"
+        },
+        "types": {
+          "type": "Array",
+          "description": "Array with one or both of: WORK, HOME"
+        }
+      }
+    },
+    "phones": {
+      "type": "Array",
+      "description": "Phone numbers associated with the Customer",
+      "items": {
+        "phoneNumber": {
+          "required": true,
+          "type": "String",
+          "description": "Nine-digit phone number formatted ###-###-####. Ex: 444-555-6666"
+        },
+        "types": {
+          "type": "Array",
+          "description": "Array with one or more of: WORK, HOME, CELL, FAX, BUSINESS"
+        }
+      }
+    },
+    "emails": {
+      "required": true,
+      "type": "Array",
+      "description": "Must provide at least one Email",
+      "items": {
+        "email": {
+          "required": true,
+          "type": "String",
+          "description": "Must be valid email address"
+        },
+        "types": {
+          "type": "String",
+          "description": "Array with one or more of: WORK, HOME"
+        }
+      }
+    },
+    "comments": {
+      "type": "Array",
+      "description": "Can be used to provide additional context about this customer"
+    },
+    "reference": {
+      "type": "String",
+      "description": "Used to attach your system's customer unique ID to this object. Up to 1024 characters long"
+    },
+    "debts": {
+      "required": true,
+      "type": "Array",
+      "description": "Any existing debts associated with the customer. Must provide at least one Debt"
+    },
+    "ssn": {
+      "type": "String",
+      "description": "The Customer's Social Security Number. Should be formatted only as digits. (Ex: 123456789)"
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "DataSource": {
+    "type": {
+      "id": "MapParser",
+      "type": "expression",
+      "value": "function process(data) { if(data['DATA_SOURCE_TYPE']) { var type = data['DATA_SOURCE_TYPE'].toUpperCase(); if(['CREDITOR', 'CUSTOMER'].includes(type)) return type; } return 'CREDITOR'; }"
+    }
+  }
+}

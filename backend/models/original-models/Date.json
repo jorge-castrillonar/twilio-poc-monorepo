@@ -1,0 +1,19 @@
+{
+  "Date": {
+    "day": {
+      "required": true,
+      "type": "Integer",
+      "description": "Takes values 1-31"
+    },
+    "month": {
+      "required": true,
+      "type": "Integer",
+      "description": "Takes values 1-12"
+    },
+    "year": {
+      "required": true,
+      "type": "Integer",
+      "description": "4-digit year, ex: 2021"
+    }
+  }
+}
