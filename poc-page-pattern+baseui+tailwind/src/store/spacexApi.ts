@@ -199,18 +199,14 @@ export const spacexApi = createApi({
       keepUnusedDataFor: DEFAULT_CACHE_TIME * 3, // Cache rockets longer as they change less frequently
     }),
 
-    getCapsules: builder.query<Capsule[], { 
-      limit?: number;
-      status?: string;
-      type?: string;
-    }>({
-      query: ({ limit = 15, status, type }) => ({
+    getCapsules: builder.query<Capsule[], { limit?: number }>({  
+      query: ({ limit = 15 }) => ({
         url: '',
         method: 'POST',
         body: {
           query: `
-            query GetCapsules($limit: Int, $status: String, $type: String) {
-              capsules(limit: $limit, status: $status, type: $type) {
+            query GetCapsules($limit: Int) {
+              capsules(limit: $limit) {
                 id
                 landings
                 type
@@ -224,27 +220,15 @@ export const spacexApi = createApi({
               }
             }
           `,
-          variables: { limit: Math.min(limit, 50), status, type },
+          variables: { limit },
         },
       }),
-      transformResponse: (response: any) => {
-        if (!response?.data?.capsules) {
-          throw new Error('Invalid response format');
-        }
-        return response.data.capsules.filter(Boolean);
-      },
-      providesTags: (result) => [
-        'Capsule',
-        ...(result?.map(({ id }) => ({ type: 'Capsule' as const, id: id || 'unknown' })) ?? []),
-      ],
+      transformResponse: (response: any) => response.data.capsules || [],
+      providesTags: ['Capsule'],
     }),
 
-    getShips: builder.query<Ship[], { 
-      limit?: number;
-      active?: boolean;
-      type?: string;
-    }>({
-      query: ({ limit = 12, active, type }) => ({
+    getShips: builder.query<Ship[], { limit?: number }>({  
+      query: ({ limit = 12 }) => ({
         url: '',
         method: 'POST',
         body: {
@@ -262,38 +246,14 @@ export const spacexApi = createApi({
                   name
                   flight
                 }
-                position {
-                  latitude
-                  longitude
-                }
               }
             }
           `,
-          variables: { limit: Math.min(limit, 50) },
+          variables: { limit },
         },
       }),
-      transformResponse: (response: any, meta, arg) => {
-        if (!response?.data?.ships) {
-          throw new Error('Invalid response format');
-        }
-        let ships = response.data.ships.filter(Boolean);
-        
-        // Client-side filtering
-        if (typeof arg.active === 'boolean') {
-          ships = ships.filter((ship: Ship) => ship.active === arg.active);
-        }
-        if (arg.type) {
-          ships = ships.filter((ship: Ship) => 
-            ship.type?.toLowerCase().includes(arg.type!.toLowerCase())
-          );
-        }
-        
-        return ships;
-      },
-      providesTags: (result) => [
-        'Ship',
-        ...(result?.map(({ id }) => ({ type: 'Ship' as const, id: id || 'unknown' })) ?? []),
-      ],
+      transformResponse: (response: any) => response.data.ships || [],
+      providesTags: ['Ship'],
     }),
     
     // Company info endpoint
