@@ -8,7 +8,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { store } from './store/store';
 import { migrateFromLocalStorage } from './utils/tokenManager';
-import { LoginPage, FilesPage, MFAPage, MFAVerificationPage } from './pages';
+import { LoginPage, FilesPage, MFAPage, MFAVerificationPage, SpaceXPage } from './pages';
 import { ProtectedRoute, AppLayout } from './components/layout';
 import { ROUTES } from './constants';
 
@@ -42,6 +42,16 @@ function AppContent() {
             <ProtectedRoute>
               <AppLayout>
                 <MFAPage />
+              </AppLayout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/spacex"
+          element={
+            <ProtectedRoute>
+              <AppLayout>
+                <SpaceXPage />
               </AppLayout>
             </ProtectedRoute>
           }

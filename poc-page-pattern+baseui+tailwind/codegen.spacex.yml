@@ -1,0 +1,13 @@
+schema: https://main--spacex-l4uc6p.apollographos.net/graphql
+generates:
+  ./src/graphql/spacex/types.ts:
+    plugins:
+      - typescript
+    config:
+      skipTypename: false
+      enumsAsTypes: true
+      scalars:
+        Date: string
+        timestamptz: string
+        uuid: string
+        ObjectID: string

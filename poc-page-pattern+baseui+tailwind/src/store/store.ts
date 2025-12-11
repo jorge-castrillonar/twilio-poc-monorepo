@@ -5,6 +5,7 @@
 
 import { configureStore } from '@reduxjs/toolkit';
 import { graphqlApi } from './graphqlApi';
+import { spacexApi } from '../graphql/spacex';
 import authReducer from './slices/authSlice';
 import filesReducer from './slices/filesSlice';
 import mfaReducer from './slices/mfaSlice';
@@ -14,8 +15,9 @@ import mfaReducer from './slices/mfaSlice';
  */
 export const store = configureStore({
   reducer: {
-    // RTK Query API reducer
+    // RTK Query API reducers
     [graphqlApi.reducerPath]: graphqlApi.reducer,
+    [spacexApi.reducerPath]: spacexApi.reducer,
     
     // Feature slices
     auth: authReducer,
@@ -24,7 +26,7 @@ export const store = configureStore({
   },
   // Add RTK Query middleware for caching, invalidation, polling, etc.
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(graphqlApi.middleware),
+    getDefaultMiddleware().concat(graphqlApi.middleware, spacexApi.middleware),
 });
 
 // Export types for TypeScript support

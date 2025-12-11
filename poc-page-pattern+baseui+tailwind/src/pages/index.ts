@@ -7,3 +7,4 @@ export { LoginPage } from './LoginPage';
 export { FilesPage } from './FilesPage';
 export { MFAPage } from './MFAPage';
 export { MFAVerificationPage } from './MFAVerificationPage';
+export { SpaceXPage } from './SpaceXPage';

@@ -49,6 +49,15 @@ Este PoC implementa **TODOS** los endpoints GraphQL documentados en `FRONTEND_IN
 - Información de archivos (nombre, tipo, tamaño, fecha)
 - Estados de archivos (UPLOADING, ACTIVE, FAILED, DELETED)
 
+### ✅ SpaceX GraphQL Integration (NEW)
+- Integración con API pública de SpaceX
+- Consulta de lanzamientos (launches)
+- Consulta de cohetes (rockets)
+- Consulta de cápsulas y naves
+- Tipos TypeScript generados automáticamente
+- Demo page en `/spacex`
+- Ver [docs/SPACEX_INTEGRATION.md](docs/SPACEX_INTEGRATION.md) para más detalles
+
 ## 🎨 Design System
 
 Sigue estrictamente los patrones de Twilio:
@@ -67,6 +76,8 @@ Sigue estrictamente los patrones de Twilio:
 - **Base UI 0.0.40** - Componentes accesibles unstyled (Button, Field, Dialog)
 - **TailwindCSS 3.4** - Utilidades de estilos con tokens de Twilio
 - **React Router 6.28** - Enrutamiento
+- **Redux Toolkit + RTK Query** - Estado global y API client
+- **GraphQL Code Generator** - Generación automática de tipos TypeScript
 - **QRCode.react** - Generación de QR codes para MFA
 - **Storybook 8.6** - Documentación interactiva de componentes
 
@@ -96,6 +107,10 @@ npm run build-storybook
 
 # Preview de producción
 npm run preview
+
+# SpaceX Integration
+npm run fetch:spacex-schema    # Fetch SpaceX GraphQL schema
+npm run codegen:spacex          # Generate TypeScript types from schema
 ```
 
 ### Verificación del Backend
