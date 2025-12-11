@@ -5,10 +5,11 @@
 
 import { configureStore } from '@reduxjs/toolkit';
 import { graphqlApi } from './graphqlApi';
-import { spacexApi } from '../graphql/spacex';
+import { spacexApi } from './spacexApi';
 import authReducer from './slices/authSlice';
 import filesReducer from './slices/filesSlice';
 import mfaReducer from './slices/mfaSlice';
+import spacexReducer from './slices/spacexSlice';
 
 /**
  * Configure Redux store with all reducers and middleware
@@ -23,6 +24,7 @@ export const store = configureStore({
     auth: authReducer,
     files: filesReducer,
     mfa: mfaReducer,
+    spacex: spacexReducer,
   },
   // Add RTK Query middleware for caching, invalidation, polling, etc.
   middleware: (getDefaultMiddleware) =>

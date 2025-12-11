@@ -4,13 +4,22 @@
  */
 
 import { render, screen, waitFor } from '@testing-library/react';
-import App from '../App';
+
+// Mock the SpaceX API to avoid import.meta.env issues
+jest.mock('../graphql/spacex/api', () => ({
+  spacexApi: {
+    reducerPath: 'spacexApi',
+    reducer: (state = {}) => state,
+    middleware: () => (next: any) => (action: any) => next(action),
+  },
+}));
 
 // Mock tokenManager before it's used by authSlice
 jest.mock('../utils/tokenManager');
 
 // Import after mocking
 import * as tokenManager from '../utils/tokenManager';
+import App from '../App';
 
 // Mock pages to avoid complex dependencies
 jest.mock('../pages/LoginPage', () => ({
@@ -23,6 +32,10 @@ jest.mock('../pages/FilesPage', () => ({
 
 jest.mock('../pages/MFAPage', () => ({
   MFAPage: () => <div data-testid="mfa-page">MFA Page</div>,
+}));
+
+jest.mock('../pages/SpaceXPage', () => ({
+  SpaceXPage: () => <div data-testid="spacex-page">SpaceX Page</div>,
 }));
 
 // Mock AppLayout to avoid complex navigation logic

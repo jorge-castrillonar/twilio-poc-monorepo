@@ -52,6 +52,13 @@ export function AppLayout({ children }: AppLayoutProps) {
                 >
                   MFA Settings
                 </Button>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => navigate('/spacex')}
+                >
+                  SpaceX
+                </Button>
               </div>
             </div>
 

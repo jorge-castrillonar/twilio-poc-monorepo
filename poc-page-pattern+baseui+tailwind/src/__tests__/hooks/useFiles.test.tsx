@@ -1,34 +1,6 @@
 /**
  * Tests for useFiles Hook
- * Complex orchestration hook for file upload   beforeEach(() => {
-    // Mock fetch for RTK Query with proper Response handling
-    // RTK Query sends a Request object, not (url, options)
-    global.fetch = jest.fn(async (input: RequestInfo | URL, init?: RequestInit) => {
-      let body: any = {};
-      let query = '';
-
-      // Handle Request object (RTK Query uses this)
-      if (input instanceof Request) {
-        try {
-          const clonedRequest = input.clone();
-          const bodyText = await clonedRequest.text();
-          body = bodyText ? JSON.parse(bodyText) : {};
-          query = (body.query || '').trim();
-        } catch (e) {
-          // If body is already consumed, use empty query
-          query = '';
-        }
-      } else {
-        // Fallback for (url, options) signature
-        if (init?.body) {
-          body = JSON.parse(init.body as string);
-          query = (body.query || '').trim();
-        }
-      }
-
-      let responseData: any = { data: {} };
-
-      const queryLower = query.toLowerCase();ty
+ * Complex orchestration hook for file upload functionality
  */
 
 import { renderHook, act, waitFor } from '@testing-library/react';
@@ -117,8 +89,6 @@ describe('useFiles Hook', () => {
       const body = bodyText ? JSON.parse(bodyText) : {};
       const query = (body.query || '').trim();
 
-      console.log('� FETCH CALLED with query:', query.substring(0, 80));
-
       let responseData: any = { data: {} };
 
       const queryLower = query.toLowerCase();
@@ -143,7 +113,7 @@ describe('useFiles Hook', () => {
         };
       }
 
-      // Mock generateUploadUrl mutation (case-insensitive)
+      // Mock generateUploadUrl mutation
       if (queryLower.includes('mutation') && queryLower.includes('generateuploadurl')) {
         responseData = {
           data: {
@@ -157,7 +127,7 @@ describe('useFiles Hook', () => {
         };
       }
 
-      // Mock completeUpload mutation (case-insensitive)
+      // Mock completeUpload mutation
       if (queryLower.includes('mutation') && queryLower.includes('completeupload')) {
         responseData = {
           data: {

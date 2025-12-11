@@ -4,7 +4,7 @@
  */
 
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import type { Launch, Rocket, Capsule, LaunchFind, Ship } from './types';
+import type { Launch, Rocket, Capsule, LaunchFind, Ship } from '../graphql/spacex/models';
 
 const SPACEX_ENDPOINT = import.meta.env.VITE_SPACEX_GRAPHQL_URL || 'https://main--spacex-l4uc6p.apollographos.net/graphql';
 

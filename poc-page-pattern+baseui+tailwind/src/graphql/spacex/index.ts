@@ -1,2 +1,2 @@
-export * from './api';
-export * from './types';
+export * from '../../store/spacexApi';
+export * from './models';

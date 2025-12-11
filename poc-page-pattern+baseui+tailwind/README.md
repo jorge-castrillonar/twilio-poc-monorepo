@@ -56,7 +56,9 @@ Este PoC implementa **TODOS** los endpoints GraphQL documentados en `FRONTEND_IN
 - Consulta de cápsulas y naves
 - Tipos TypeScript generados automáticamente
 - Demo page en `/spacex`
+- Unit tests y E2E tests completos
 - Ver [docs/SPACEX_INTEGRATION.md](docs/SPACEX_INTEGRATION.md) para más detalles
+- Ver [docs/SPACEX_TESTING.md](docs/SPACEX_TESTING.md) para testing
 
 ## 🎨 Design System
 
@@ -111,6 +113,11 @@ npm run preview
 # SpaceX Integration
 npm run fetch:spacex-schema    # Fetch SpaceX GraphQL schema
 npm run codegen:spacex          # Generate TypeScript types from schema
+
+# Testing
+npm test                        # Run all unit tests
+npm test -- spacex              # Run SpaceX unit tests only
+npm run test:e2e -- spacex.spec.ts  # Run SpaceX E2E tests
 ```
 
 ### Verificación del Backend
